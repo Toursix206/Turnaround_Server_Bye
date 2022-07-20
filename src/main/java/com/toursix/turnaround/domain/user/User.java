@@ -1,6 +1,7 @@
 package com.toursix.turnaround.domain.user;
 
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
+import com.toursix.turnaround.domain.room.Room;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,10 @@ public class User extends AuditingTimeEntity {
     @JoinColumn(name = "onboarding_id")
     private Onboarding onboarding;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
+    private Room room;
+
     private User(String socialId, UserSocialType socialType) {
         this.socialInfo = SocialInfo.of(socialId, socialType);
         this.status = UserStatus.ACTIVE;
@@ -38,5 +43,9 @@ public class User extends AuditingTimeEntity {
 
     public void setOnboarding(Onboarding onboarding) {
         this.onboarding = onboarding;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }
