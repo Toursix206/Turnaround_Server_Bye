@@ -32,7 +32,7 @@ public class Onboarding extends AuditingTimeEntity {
 
     @Column(length = 30)
     @Enumerated(EnumType.STRING)
-    private CleanLevelType cleanLevel;
+    private CleanAbilityType cleanAbility;
 
     @Column(length = 100)
     private String address;

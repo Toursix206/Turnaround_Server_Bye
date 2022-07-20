@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public enum CleanLevelType implements EnumModel {
+public enum CleanAbilityType implements EnumModel {
     GOOD("상"),
     NORMAL("중"),
     BAD("하");
