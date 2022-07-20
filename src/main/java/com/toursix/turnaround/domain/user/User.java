@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Table(name = "users")
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,6 +23,10 @@ public class User extends AuditingTimeEntity {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "onboarding_id")
+    private Onboarding onboarding;
+
     private User(String socialId, UserSocialType socialType) {
         this.socialInfo = SocialInfo.of(socialId, socialType);
         this.status = UserStatus.ACTIVE;
@@ -31,5 +34,9 @@ public class User extends AuditingTimeEntity {
 
     public static User newInstance(String socialId, UserSocialType socialType) {
         return new User(socialId, socialType);
+    }
+
+    public void setOnboarding(Onboarding onboarding) {
+        this.onboarding = onboarding;
     }
 }
