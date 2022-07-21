@@ -53,7 +53,7 @@ public class Onboarding extends AuditingTimeEntity {
     @Column(nullable = false)
     private boolean isChecked;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "onboarding", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "room_id")
     private Room room;
 
