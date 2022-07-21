@@ -2,6 +2,7 @@ package com.toursix.turnaround.domain.done;
 
 import com.toursix.turnaround.domain.activityreview.ActivityReview;
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
+import com.toursix.turnaround.domain.todo.Todo;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,13 +18,13 @@ public class Done extends AuditingTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long todoId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "todo_id", nullable = false)
+    private Todo todo;
 
     @Column(nullable = false, length = 300)
     private String image;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "activity_review_id")
+    @OneToOne(mappedBy = "done", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private ActivityReview activityReview;
 }

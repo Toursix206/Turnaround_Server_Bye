@@ -22,7 +22,7 @@ public class Room extends AuditingTimeEntity {
     @Column(nullable = true)
     private int cleanScore;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_image_id")
     private RoomImage roomImage;
 }
