@@ -1,12 +1,14 @@
 package com.toursix.turnaround.domain.user;
 
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
+import com.toursix.turnaround.domain.todo.Todo;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -48,4 +50,7 @@ public class Onboarding extends AuditingTimeEntity {
 
     @Column(nullable = false)
     private boolean isChecked;
+
+    @OneToMany(mappedBy = "onboarding", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Todo> todos = new ArrayList<>();
 }
