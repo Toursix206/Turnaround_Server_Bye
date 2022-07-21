@@ -16,9 +16,6 @@ public class RoomImage extends AuditingTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long roomId;
-
     @Column(nullable = false, length = 300)
     private String imageUrl;
 }
