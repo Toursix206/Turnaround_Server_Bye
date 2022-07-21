@@ -17,8 +17,5 @@ public class Point extends AuditingTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    private Long userId;
-
-    @Column(nullable = false)
     private int amount;
 }

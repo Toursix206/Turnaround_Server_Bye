@@ -17,9 +17,6 @@ public class Setting extends AuditingTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    private Long userId;
-
-    @Column(nullable = false)
     private boolean agreeBenefitAndEvent;
 
     @Column(nullable = false)
