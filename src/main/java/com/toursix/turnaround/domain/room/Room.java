@@ -17,7 +17,7 @@ public class Room extends AuditingTimeEntity {
     private Long id;
 
     @Column(nullable = false)
-    private Long userId;
+    private Long onboardingId;
 
     @Column(nullable = true)
     private int cleanLevel;

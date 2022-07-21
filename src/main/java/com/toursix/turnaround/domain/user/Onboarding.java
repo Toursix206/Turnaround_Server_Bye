@@ -1,6 +1,7 @@
 package com.toursix.turnaround.domain.user;
 
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
+import com.toursix.turnaround.domain.room.Room;
 import com.toursix.turnaround.domain.todo.Todo;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -53,6 +54,10 @@ public class Onboarding extends AuditingTimeEntity {
 
     @Column(nullable = false)
     private boolean isChecked;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
+    private Room room;
 
     @OneToMany(mappedBy = "onboarding", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Todo> todos = new ArrayList<>();
