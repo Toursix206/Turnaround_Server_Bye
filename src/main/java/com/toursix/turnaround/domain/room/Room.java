@@ -1,11 +1,14 @@
 package com.toursix.turnaround.domain.room;
 
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
+import com.toursix.turnaround.domain.room.data.RoomData;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -16,13 +19,16 @@ public class Room extends AuditingTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private int cleanLevel;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private int cleanScore;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_image_id")
-    private RoomImage roomImage;
+    private RoomImage image;
+
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
+    private final List<RoomData> roomDatas = new ArrayList<>();
 }

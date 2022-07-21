@@ -24,15 +24,15 @@ public class User extends AuditingTimeEntity {
     private UserStatus status;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "onboarding_id")
+    @JoinColumn(name = "onboarding_id", nullable = false)
     private Onboarding onboarding;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "setting_id")
+    @JoinColumn(name = "setting_id", nullable = false)
     private Setting setting;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "point_id")
+    @JoinColumn(name = "point_id", nullable = false)
     private Point point;
 
     private User(String socialId, UserSocialType socialType) {
