@@ -26,13 +26,13 @@ public class Activity extends AuditingTimeEntity {
     private boolean isFree;
 
     @Column(nullable = false, length = 100)
-    private String activityName;
+    private String name;
 
     @Column(nullable = false, length = 100)
-    private String activityDetail;
+    private String detail;
 
     @Column(nullable = false, length = 300)
-    private String activityImage;
+    private String image;
 
     @Column(nullable = false)
     private int cleanScore;

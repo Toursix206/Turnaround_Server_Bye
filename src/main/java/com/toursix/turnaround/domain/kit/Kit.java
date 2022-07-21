@@ -17,10 +17,10 @@ public class Kit extends AuditingTimeEntity {
     private Long id;
 
     @Column(nullable = false, length = 100)
-    private String kitName;
+    private String name;
 
     @Column(nullable = false, length = 300)
-    private String imageUrl;
+    private String image;
 
     @Column(nullable = false)
     private int point;
