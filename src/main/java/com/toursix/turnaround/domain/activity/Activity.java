@@ -31,6 +31,9 @@ public class Activity extends AuditingTimeEntity {
     @Column(nullable = false, length = 100)
     private String activityDetail;
 
+    @Column(nullable = false, length = 300)
+    private String activityImage;
+
     @Column(nullable = false)
     private int cleanScore;
 
@@ -42,9 +45,6 @@ public class Activity extends AuditingTimeEntity {
 
     @Embedded
     private PayInfo payInfo;
-
-    @OneToMany(targetEntity = ActivityImage.class, cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<ActivityImage> images = new ArrayList<>();
 
     @OneToMany(targetEntity = ActivityGuide.class, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ActivityGuide> guides = new ArrayList<>();
