@@ -1,6 +1,8 @@
 package com.toursix.turnaround.domain.activityreview;
 
+import com.toursix.turnaround.domain.activity.Activity;
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
+import com.toursix.turnaround.domain.done.Done;
 import com.toursix.turnaround.domain.user.Onboarding;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,8 +23,13 @@ public class ActivityReview extends AuditingTimeEntity {
     @JoinColumn(name = "onboarding_id", nullable = false)
     private Onboarding onboarding;
 
-    @Column(nullable = false)
-    private Long doneId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "activity_id", nullable = false)
+    private Activity activity;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "done_id", nullable = false)
+    private Done done;
 
     @Column
     private double grade;

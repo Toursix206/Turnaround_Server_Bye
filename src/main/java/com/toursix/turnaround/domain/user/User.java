@@ -23,16 +23,16 @@ public class User extends AuditingTimeEntity {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "onboarding_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "onboarding_id", nullable = false)
     private Onboarding onboarding;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "setting_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "setting_id", nullable = false)
     private Setting setting;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "point_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "point_id", nullable = false)
     private Point point;
 
     private User(String socialId, UserSocialType socialType) {

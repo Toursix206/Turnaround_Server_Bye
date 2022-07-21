@@ -21,9 +21,6 @@ public class Onboarding extends AuditingTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long userId;
-
     @Column(length = 30)
     private String name;
 
@@ -56,13 +53,13 @@ public class Onboarding extends AuditingTimeEntity {
     @Column(nullable = false)
     private boolean isChecked;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
-    @OneToMany(mappedBy = "onboarding", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "onboarding", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Todo> todos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "onboarding", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "onboarding", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ActivityReview> activityReviews = new ArrayList<>();
 }

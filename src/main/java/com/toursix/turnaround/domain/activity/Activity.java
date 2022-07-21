@@ -1,5 +1,6 @@
 package com.toursix.turnaround.domain.activity;
 
+import com.toursix.turnaround.domain.activityreview.ActivityReview;
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -46,6 +47,10 @@ public class Activity extends AuditingTimeEntity {
     @Embedded
     private PayInfo payInfo;
 
-    @OneToMany(targetEntity = ActivityGuide.class, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "activity_guide_id", nullable = false)
     private final List<ActivityGuide> guides = new ArrayList<>();
+
+    @OneToMany(mappedBy = "activity", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<ActivityReview> reviews = new ArrayList<>();
 }

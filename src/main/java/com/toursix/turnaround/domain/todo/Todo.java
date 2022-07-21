@@ -25,7 +25,7 @@ public class Todo extends AuditingTimeEntity {
     @JoinColumn(name = "onboarding_id", nullable = false)
     private Onboarding onboarding;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "activity_id", nullable = false)
     private Activity activity;
 
@@ -33,7 +33,6 @@ public class Todo extends AuditingTimeEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "Asia/Seoul")
     private LocalDateTime startAt;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "done_id")
+    @OneToOne(mappedBy = "todo", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Done done;
 }

@@ -18,7 +18,7 @@ import java.util.List;
 @Embeddable
 public class PayInfo {
 
-    @Column
+    @Column(nullable = false)
     private int price;
 
     @OneToMany(targetEntity = Kit.class)
