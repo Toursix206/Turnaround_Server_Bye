@@ -1,5 +1,6 @@
 package com.toursix.turnaround.domain.user;
 
+import com.toursix.turnaround.domain.activityreview.ActivityReview;
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
 import com.toursix.turnaround.domain.room.Room;
 import com.toursix.turnaround.domain.todo.Todo;
@@ -61,4 +62,7 @@ public class Onboarding extends AuditingTimeEntity {
 
     @OneToMany(mappedBy = "onboarding", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Todo> todos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "onboarding", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<ActivityReview> activityReviews = new ArrayList<>();
 }

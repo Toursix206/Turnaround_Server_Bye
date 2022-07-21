@@ -1,5 +1,6 @@
 package com.toursix.turnaround.domain.done;
 
+import com.toursix.turnaround.domain.activityreview.ActivityReview;
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,4 +22,8 @@ public class Done extends AuditingTimeEntity {
 
     @Column(nullable = false, length = 300)
     private String image;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "activity_review_id")
+    private ActivityReview activityReview;
 }
