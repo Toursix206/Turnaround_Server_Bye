@@ -23,7 +23,10 @@ public class Onboarding extends AuditingTimeEntity {
     private Long userId;
 
     @Column(length = 30)
-    private String userName;
+    private String name;
+
+    @Column(length = 100)
+    private String email;
 
     @Column(length = 100)
     private String phoneNumber;
