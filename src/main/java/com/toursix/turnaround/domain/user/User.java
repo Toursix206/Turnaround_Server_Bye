@@ -31,6 +31,10 @@ public class User extends AuditingTimeEntity {
     @JoinColumn(name = "setting_id")
     private Setting setting;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "point_id")
+    private Point point;
+
     private User(String socialId, UserSocialType socialType) {
         this.socialInfo = SocialInfo.of(socialId, socialType);
         this.status = UserStatus.ACTIVE;
