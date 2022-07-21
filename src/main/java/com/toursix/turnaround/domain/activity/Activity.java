@@ -46,6 +46,7 @@ public class Activity extends AuditingTimeEntity {
     @Embedded
     private PayInfo payInfo;
 
-    @OneToMany(targetEntity = ActivityGuide.class, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "activity_guide_id")
     private final List<ActivityGuide> guides = new ArrayList<>();
 }

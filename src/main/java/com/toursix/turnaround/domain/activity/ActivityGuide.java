@@ -16,9 +16,6 @@ public class ActivityGuide extends AuditingTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long activityId;
-
     @Column(nullable = false, length = 100)
     private String content;
 
