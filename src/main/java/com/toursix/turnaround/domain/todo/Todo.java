@@ -3,8 +3,8 @@ package com.toursix.turnaround.domain.todo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.toursix.turnaround.domain.activity.Activity;
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
+import com.toursix.turnaround.domain.done.Done;
 import com.toursix.turnaround.domain.user.Onboarding;
-import com.toursix.turnaround.domain.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,4 +32,8 @@ public class Todo extends AuditingTimeEntity {
     @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "Asia/Seoul")
     private LocalDateTime startAt;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "done_id")
+    private Done done;
 }
