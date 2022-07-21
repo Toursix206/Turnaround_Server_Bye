@@ -28,6 +28,8 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
         registry.addResourceHandler("/swagger-ui/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/swagger-ui/2.9.2/");
+        registry.addResourceHandler("address.html")
+                .addResourceLocations("classpath:/public/");
     }
 
     @Bean
@@ -42,11 +44,9 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Boilerplate Release")
+                .title("Turnaround Release")
                 .description("backend api document")
                 .version("1.0.0")
                 .build();
     }
-
-
 }
