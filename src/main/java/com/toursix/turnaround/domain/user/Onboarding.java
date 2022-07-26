@@ -84,4 +84,13 @@ public class Onboarding extends AuditingTimeEntity {
                 .room(room)
                 .build();
     }
+
+    public void updateInfo(GenderType gender, CleanAbilityType cleanAbility, String address, String detailAddress, String gatePassword) {
+        this.gender = gender;
+        this.cleanAbility = cleanAbility;
+        this.address = address;
+        this.detailAddress = detailAddress;
+        this.gatePassword = gatePassword;
+        this.isChecked = true;
+    }
 }
