@@ -48,9 +48,6 @@ public class Onboarding extends AuditingTimeEntity {
     private String gatePassword;
 
     @Column(nullable = false)
-    private int activityLevel;
-
-    @Column(nullable = false)
     private boolean isChecked;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
