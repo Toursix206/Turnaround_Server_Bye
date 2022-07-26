@@ -18,7 +18,7 @@ public class UserRetrieveService {
     public OnboardingInfoCheckResponse getMyOnboardingInfoCheck(Long userId) {
         User user = UserServiceUtils.findUserById(userRepository, userId);
         Onboarding onboarding = user.getOnboarding();
-        if (onboarding == null || !onboarding.isChecked()) return OnboardingInfoCheckResponse.of(false);
+        if (!onboarding.isChecked()) return OnboardingInfoCheckResponse.of(false);
         else return OnboardingInfoCheckResponse.of(true);
     }
 }
