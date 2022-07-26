@@ -2,6 +2,7 @@ package com.toursix.turnaround.domain.user;
 
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,4 +25,19 @@ public class Setting extends AuditingTimeEntity {
 
     @Column(nullable = false)
     private boolean agreeJoinEvent;
+
+    @Builder(access = AccessLevel.PACKAGE)
+    public Setting(boolean agreeBenefitAndEvent, boolean agreePushNotification, boolean agreeJoinEvent) {
+        this.agreeBenefitAndEvent = agreeBenefitAndEvent;
+        this.agreePushNotification = agreePushNotification;
+        this.agreeJoinEvent = agreeJoinEvent;
+    }
+
+    public static Setting newInstance() {
+        return Setting.builder()
+                .agreeBenefitAndEvent(true)
+                .agreePushNotification(true)
+                .agreeJoinEvent(false)
+                .build();
+    }
 }

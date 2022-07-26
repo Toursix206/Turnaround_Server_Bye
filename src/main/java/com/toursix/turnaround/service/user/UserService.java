@@ -1,5 +1,7 @@
 package com.toursix.turnaround.service.user;
 
+import com.toursix.turnaround.domain.user.Point;
+import com.toursix.turnaround.domain.user.Setting;
 import com.toursix.turnaround.domain.user.User;
 import com.toursix.turnaround.domain.user.repository.UserRepository;
 import com.toursix.turnaround.service.user.dto.request.CreateUserDto;
@@ -17,7 +19,7 @@ public class UserService {
     @Transactional
     public Long registerUser(CreateUserDto request) {
         UserServiceUtils.validateNotExistsUser(userRepository, request.getSocialId(), request.getSocialType());
-        User user = userRepository.save(User.newInstance(request.getSocialId(), request.getSocialType()));
+        User user = userRepository.save(User.newInstance(request.getSocialId(), request.getSocialType(), Setting.newInstance(), Point.newInstance()));
         return user.getId();
     }
 }

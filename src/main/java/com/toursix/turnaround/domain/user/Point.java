@@ -2,6 +2,7 @@ package com.toursix.turnaround.domain.user;
 
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +19,15 @@ public class Point extends AuditingTimeEntity {
 
     @Column(nullable = false)
     private int amount;
+
+    @Builder(access = AccessLevel.PACKAGE)
+    public Point(int amount) {
+        this.amount = amount;
+    }
+
+    public static Point newInstance() {
+        return Point.builder()
+                .amount(0)
+                .build();
+    }
 }
