@@ -28,7 +28,8 @@ public class KaKaoAuthService implements AuthService {
     public Long login(LoginDto request) {
         KakaoProfileResponse response = kaKaoApiCaller.getProfileInfo(HttpHeaderUtils.withBearerToken(request.getToken()));
         User user = UserServiceUtils.findUserBySocialIdAndSocialType(userRepository, response.getId(), socialType);
-        if (user == null) return userService.registerUser(request.toCreateUserDto(response.getId()));
+        if (user == null)
+            return userService.registerUser(request.toCreateUserDto(response.getId(), response.getKakao_account()));
         return user.getId();
     }
 }

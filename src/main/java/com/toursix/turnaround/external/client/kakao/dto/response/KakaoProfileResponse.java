@@ -16,7 +16,21 @@ public class KakaoProfileResponse {
 
     private String id;
 
-    private KakaoProfileResponse(String id) {
+    private KakaoAccount kakao_account;
+
+    private KakaoProfileResponse(String id, KakaoAccount kakao_account) {
         this.id = id;
+        this.kakao_account = kakao_account;
+    }
+
+    @ToString
+    @Getter
+    @NoArgsConstructor
+    public class KakaoAccount {
+        private String name;
+        private boolean has_email;
+        private String email;
+        private boolean has_phone_number;
+        private String phone_number;
     }
 }

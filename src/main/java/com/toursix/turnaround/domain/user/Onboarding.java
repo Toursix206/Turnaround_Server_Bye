@@ -5,6 +5,7 @@ import com.toursix.turnaround.domain.common.AuditingTimeEntity;
 import com.toursix.turnaround.domain.room.Room;
 import com.toursix.turnaround.domain.todo.Todo;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -59,4 +60,28 @@ public class Onboarding extends AuditingTimeEntity {
 
     @OneToMany(mappedBy = "onboarding", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ActivityReview> activityReviews = new ArrayList<>();
+
+    @Builder(access = AccessLevel.PACKAGE)
+    public Onboarding(String name, String email, String phoneNumber, GenderType gender, CleanAbilityType cleanAbility, String address, String detailAddress, String gatePassword, boolean isChecked, Room room) {
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.cleanAbility = cleanAbility;
+        this.address = address;
+        this.detailAddress = detailAddress;
+        this.gatePassword = gatePassword;
+        this.isChecked = isChecked;
+        this.room = room;
+    }
+
+    public static Onboarding newInstance(String name, String email, String phoneNumber, Room room) {
+        return Onboarding.builder()
+                .name(name)
+                .email(email)
+                .phoneNumber(phoneNumber)
+                .isChecked(false)
+                .room(room)
+                .build();
+    }
 }
