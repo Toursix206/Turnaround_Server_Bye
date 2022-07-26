@@ -3,6 +3,7 @@ package com.toursix.turnaround.domain.room;
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
 import com.toursix.turnaround.domain.room.data.RoomData;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,8 +28,21 @@ public class Room extends AuditingTimeEntity {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "room_image_id")
-    private RoomImage image;
+    private RoomImage roomImage;
 
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
     private final List<RoomData> roomDatas = new ArrayList<>();
+
+    @Builder(access = AccessLevel.PACKAGE)
+    public Room(int cleanLevel, int cleanScore) {
+        this.cleanLevel = cleanLevel;
+        this.cleanScore = cleanScore;
+    }
+
+    public static Room newInstance() {
+        return Room.builder()
+                .cleanLevel(1)
+                .cleanScore(0)
+                .build();
+    }
 }

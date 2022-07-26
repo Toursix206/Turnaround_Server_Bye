@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -21,24 +23,12 @@ public class RoomData extends AuditingTimeEntity {
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
-    @Column(nullable = false)
-    private String image;
+    @OneToMany(mappedBy = "roomData", fetch = FetchType.LAZY)
+    private final List<RoomPrivateImage> roomPrivateImages = new ArrayList<>();
 
     @Embedded
     private RoomStructure roomStructure;
 
     @Embedded
     private RoomSpaceSeperation roomSpaceSeperation;
-
-//    @Embedded
-//    private RoomSleep roomSleep;
-//
-//    @Embedded
-//    private RoomLaundry roomLaundry;
-//
-//    @Embedded
-//    private RoomOffice roomOffice;
-//
-//    @Embedded
-//    private RoomElseSpace roomElseSpace;
 }

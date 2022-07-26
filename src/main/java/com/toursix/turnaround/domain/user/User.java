@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Table(name = "users")
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,7 +25,7 @@ public class User extends AuditingTimeEntity {
     private UserStatus status;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "onboarding_id")
+    @JoinColumn(name = "onboarding_id", nullable = false)
     private Onboarding onboarding;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -35,18 +36,15 @@ public class User extends AuditingTimeEntity {
     @JoinColumn(name = "point_id", nullable = false)
     private Point point;
 
-    private User(String socialId, UserSocialType socialType, Setting setting, Point point) {
+    private User(String socialId, UserSocialType socialType, Onboarding onboarding, Setting setting, Point point) {
         this.socialInfo = SocialInfo.of(socialId, socialType);
+        this.onboarding = onboarding;
         this.setting = setting;
         this.point = point;
         this.status = UserStatus.ACTIVE;
     }
 
-    public static User newInstance(String socialId, UserSocialType socialType, Setting setting, Point point) {
-        return new User(socialId, socialType, setting, point);
-    }
-
-    public void setOnboarding(Onboarding onboarding) {
-        this.onboarding = onboarding;
+    public static User newInstance(String socialId, UserSocialType socialType, Onboarding onboarding, Setting setting, Point point) {
+        return new User(socialId, socialType, onboarding, setting, point);
     }
 }

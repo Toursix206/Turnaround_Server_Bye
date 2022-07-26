@@ -1,6 +1,7 @@
 package com.toursix.turnaround.service.auth.dto.request;
 
 import com.toursix.turnaround.domain.user.UserSocialType;
+import com.toursix.turnaround.external.client.kakao.dto.response.KakaoProfileResponse;
 import com.toursix.turnaround.service.user.dto.request.CreateUserDto;
 import lombok.*;
 
@@ -18,7 +19,7 @@ public class LoginDto {
         return new LoginDto(socialType, token);
     }
 
-    public CreateUserDto toCreateUserDto(String socialId) {
-        return CreateUserDto.of(socialId, socialType);
+    public CreateUserDto toCreateUserDto(String socialId, KakaoProfileResponse.KakaoAccount kakao_account) {
+        return CreateUserDto.of(socialId, socialType, kakao_account);
     }
 }

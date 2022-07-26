@@ -22,11 +22,13 @@ public class AppleAuthService implements AuthService {
     private final UserService userService;
     private final UserRepository userRepository;
 
+    //TODO 애플로그인으로 받아올 수 있는 유저정보 확인 후 수정
     @Override
     public Long login(LoginDto request) {
         String socialId = appleTokenDecoder.getSocialIdFromIdToken(request.getToken());
         User user = UserServiceUtils.findUserBySocialIdAndSocialType(userRepository, socialId, socialType);
-        if (user == null) return userService.registerUser(request.toCreateUserDto(socialId));
-        return user.getId();
+//        if (user == null) return userService.registerUser(request.toCreateUserDto(socialId));
+//        return user.getId();
+        return 1L;
     }
 }
