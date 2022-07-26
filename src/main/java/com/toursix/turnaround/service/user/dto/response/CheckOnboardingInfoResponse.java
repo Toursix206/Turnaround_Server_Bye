@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder(access = AccessLevel.PRIVATE)
-public class OnboardingInfoCheckResponse {
+public class CheckOnboardingInfoResponse {
 
     private boolean isChecked;
 
@@ -16,8 +16,8 @@ public class OnboardingInfoCheckResponse {
         return isChecked;
     }
 
-    public static OnboardingInfoCheckResponse of(boolean isChecked) {
-        return OnboardingInfoCheckResponse.builder()
+    public static CheckOnboardingInfoResponse of(boolean isChecked) {
+        return CheckOnboardingInfoResponse.builder()
                 .isChecked(isChecked)
                 .build();
     }
