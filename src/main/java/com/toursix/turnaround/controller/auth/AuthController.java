@@ -8,6 +8,7 @@ import com.toursix.turnaround.service.auth.AuthServiceProvider;
 import com.toursix.turnaround.service.auth.CreateTokenService;
 import com.toursix.turnaround.service.auth.dto.request.TokenRequestDto;
 import com.toursix.turnaround.service.auth.dto.response.TokenResponseDto;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@Api(tags = "Auth")
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
