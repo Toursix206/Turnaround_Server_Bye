@@ -25,9 +25,8 @@ public class Room extends AuditingTimeEntity {
     @Column(nullable = false)
     private int cleanScore;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "room_image_id")
-    private RoomImage image;
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
+    private final List<RoomImage> roomImages = new ArrayList<>();
 
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
     private final List<RoomData> roomDatas = new ArrayList<>();
