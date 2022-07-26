@@ -1,6 +1,7 @@
 package com.toursix.turnaround.service.auth.dto.request;
 
 import com.toursix.turnaround.domain.user.UserSocialType;
+import com.toursix.turnaround.service.user.dto.request.CreateUserDto;
 import lombok.*;
 
 @ToString
@@ -15,5 +16,9 @@ public class LoginDto {
 
     public static LoginDto of(UserSocialType socialType, String token) {
         return new LoginDto(socialType, token);
+    }
+
+    public CreateUserDto toCreateUserDto(String socialId) {
+        return CreateUserDto.of(socialId, socialType);
     }
 }
