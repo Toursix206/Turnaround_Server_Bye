@@ -1,6 +1,7 @@
 package com.toursix.turnaround.controller.user;
 
 import com.toursix.turnaround.common.dto.ApiResponse;
+import com.toursix.turnaround.common.success.SuccessCode;
 import com.toursix.turnaround.config.interceptor.Auth;
 import com.toursix.turnaround.config.resolver.UserId;
 import com.toursix.turnaround.service.user.UserRetrieveService;
@@ -23,6 +24,6 @@ public class UserRetrieveController {
     @Auth
     @GetMapping("/v1/user/me/onboarding/check")
     public ApiResponse<CheckOnboardingInfoResponse> checkMyOnboardingInfo(@ApiIgnore @UserId Long userId) {
-        return ApiResponse.success(userRetrieveService.checkMyOnboardingInfo(userId));
+        return ApiResponse.success(SuccessCode.CHECK_ONBOARDING_SUCCESS, userRetrieveService.checkMyOnboardingInfo(userId));
     }
 }
