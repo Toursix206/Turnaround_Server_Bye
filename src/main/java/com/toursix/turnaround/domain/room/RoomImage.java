@@ -17,5 +17,5 @@ public class RoomImage extends AuditingTimeEntity {
     private Long id;
 
     @Column(nullable = false, length = 300)
-    private String image;
+    private String imageUrl;
 }

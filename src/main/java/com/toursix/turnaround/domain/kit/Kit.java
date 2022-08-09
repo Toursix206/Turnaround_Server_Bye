@@ -20,7 +20,7 @@ public class Kit extends AuditingTimeEntity {
     private String name;
 
     @Column(nullable = false, length = 300)
-    private String image;
+    private String imageUrl;
 
     @Column(nullable = false)
     private int point;

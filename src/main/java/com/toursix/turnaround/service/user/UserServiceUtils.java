@@ -21,8 +21,7 @@ public class UserServiceUtils {
     }
 
     public static User findUserBySocialIdAndSocialType(UserRepository userRepository, String socialId, UserSocialType socialType) {
-        User user = userRepository.findUserBySocialIdAndSocialType(socialId, socialType);
-        return user;
+        return userRepository.findUserBySocialIdAndSocialType(socialId, socialType);
     }
 
     public static User findUserById(UserRepository userRepository, Long userId) {

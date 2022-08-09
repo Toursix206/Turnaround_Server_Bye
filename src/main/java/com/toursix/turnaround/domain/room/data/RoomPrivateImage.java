@@ -21,5 +21,5 @@ public class RoomPrivateImage extends AuditingTimeEntity {
     private RoomData roomData;
 
     @Column(nullable = false, length = 300)
-    private String image;
+    private String imageUrl;
 }
