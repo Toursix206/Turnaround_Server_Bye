@@ -2,7 +2,6 @@ package com.toursix.turnaround.domain.room;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
-import com.toursix.turnaround.domain.room.data.RoomData;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,8 +9,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity
@@ -35,9 +32,6 @@ public class Room extends AuditingTimeEntity {
     @Column
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "Asia/Seoul")
     private LocalDateTime turnaroundAt;
-
-    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
-    private final List<RoomData> roomDatas = new ArrayList<>();
 
     @Builder(access = AccessLevel.PACKAGE)
     public Room(int cleanLevel, int cleanScore) {
