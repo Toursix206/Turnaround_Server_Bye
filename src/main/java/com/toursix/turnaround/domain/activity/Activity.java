@@ -33,7 +33,7 @@ public class Activity extends AuditingTimeEntity {
     private String detail;
 
     @Column(nullable = false, length = 300)
-    private String image;
+    private String imageUrl;
 
     @Column(nullable = false)
     private int cleanScore;

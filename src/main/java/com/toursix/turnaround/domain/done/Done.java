@@ -23,7 +23,7 @@ public class Done extends AuditingTimeEntity {
     private Todo todo;
 
     @Column(nullable = false, length = 300)
-    private String image;
+    private String imageUrl;
 
     @OneToOne(mappedBy = "done", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private ActivityReview activityReview;
