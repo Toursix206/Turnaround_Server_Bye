@@ -20,7 +20,7 @@ public class UserRetrieveController {
 
     private final UserRetrieveService userRetrieveService;
 
-    @ApiOperation("[인증] 나의 온보딩 정보 등록여부를 확인합니다.")
+    @ApiOperation("[인증] 온보딩 페이지 - 나의 온보딩 정보 등록여부를 확인합니다.")
     @Auth
     @GetMapping("/v1/user/onboarding/check")
     public ApiResponse<CheckOnboardingInfoResponse> checkMyOnboardingInfo(@ApiIgnore @UserId Long userId) {

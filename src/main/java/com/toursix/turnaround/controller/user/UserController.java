@@ -22,7 +22,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @ApiOperation("[인증] 나의 온보딩 정보를 설정합니다.")
+    @ApiOperation("[인증] 온보딩 페이지 - 나의 온보딩 정보를 설정합니다.")
     @Auth
     @PostMapping("/v1/user/onboarding")
     public ApiResponse<String> setOnboardingInfo(@Valid @RequestBody UpdateOnboardingInfoRequestDto request, @ApiIgnore @UserId Long userId) {
