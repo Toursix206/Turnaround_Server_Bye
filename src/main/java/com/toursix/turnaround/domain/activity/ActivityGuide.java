@@ -21,4 +21,7 @@ public class ActivityGuide extends AuditingTimeEntity {
 
     @Column(nullable = false, length = 300)
     private String imageUrl;
+
+    @Column(nullable = false)
+    private int step;
 }
