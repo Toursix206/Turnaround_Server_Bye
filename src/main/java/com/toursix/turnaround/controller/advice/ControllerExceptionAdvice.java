@@ -2,7 +2,7 @@ package com.toursix.turnaround.controller.advice;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.toursix.turnaround.common.dto.ApiResponse;
-import com.toursix.turnaround.common.exception.BoilerplateException;
+import com.toursix.turnaround.common.exception.TurnaroundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
@@ -132,10 +132,10 @@ public class ControllerExceptionAdvice {
     }
 
     /**
-     * Boilerplate Custom Exception
+     * Turnaround Custom Exception
      */
-    @ExceptionHandler(BoilerplateException.class)
-    protected ResponseEntity<ApiResponse<Object>> handleBaseException(BoilerplateException exception) {
+    @ExceptionHandler(TurnaroundException.class)
+    protected ResponseEntity<ApiResponse<Object>> handleBaseException(TurnaroundException exception) {
         log.error(exception.getMessage(), exception);
         return ResponseEntity.status(exception.getStatus())
                 .body(ApiResponse.error(exception.getErrorCode()));
