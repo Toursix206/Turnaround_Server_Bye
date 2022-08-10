@@ -10,9 +10,7 @@ import static com.toursix.turnaround.common.exception.ErrorCode.FORBIDDEN_FILE_N
 @Getter
 public enum FileType {
 
-    USER_PROFILE_IMAGE("(유저) 프로필 이미지", "user/profile/v1/", FileContentType.IMAGE),
-    PRODUCT_IMAGE("상품 이미지", "product/v1/", FileContentType.IMAGE),
-    ;
+    ROOM_PRIVATE_IMAGE("방촬영 이미지", "data/", FileContentType.IMAGE);
 
     private final String description;
     private final String directory;
