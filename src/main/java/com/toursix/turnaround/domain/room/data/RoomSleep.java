@@ -18,5 +18,5 @@ public class RoomSleep {
     private boolean bed;
 
     @Column(nullable = false)
-    private boolean pillow;
+    private boolean bedding;
 }
