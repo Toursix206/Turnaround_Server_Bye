@@ -4,14 +4,18 @@ import lombok.*;
 
 @ToString
 @Getter
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(access = AccessLevel.PRIVATE)
 public class TokenResponseDto {
 
     private String accessToken;
     private String refreshToken;
 
     public static TokenResponseDto of(String accessToken, String refreshToken) {
-        return new TokenResponseDto(accessToken, refreshToken);
+        return TokenResponseDto.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 }

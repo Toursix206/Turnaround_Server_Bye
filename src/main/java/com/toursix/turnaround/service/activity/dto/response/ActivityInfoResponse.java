@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 @ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(access = AccessLevel.PRIVATE)
 public class ActivityInfoResponse {
 
     private Long activityId;
@@ -23,16 +25,6 @@ public class ActivityInfoResponse {
     private String detail;
 
     private String imageUrl;
-
-    @Builder(access = AccessLevel.PACKAGE)
-    public ActivityInfoResponse(Long activityId, ActivityCategory category, ActivityPaymentStatus paymentStatus, String name, String detail, String imageUrl) {
-        this.activityId = activityId;
-        this.category = category;
-        this.paymentStatus = paymentStatus;
-        this.name = name;
-        this.detail = detail;
-        this.imageUrl = imageUrl;
-    }
 
     public static ActivityInfoResponse of(@NotNull Activity activity) {
         return ActivityInfoResponse.builder()
