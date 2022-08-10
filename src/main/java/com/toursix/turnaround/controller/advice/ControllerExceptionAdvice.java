@@ -2,6 +2,7 @@ package com.toursix.turnaround.controller.advice;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.toursix.turnaround.common.dto.ApiResponse;
+import com.toursix.turnaround.common.exception.FeignClientException;
 import com.toursix.turnaround.common.exception.TurnaroundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
@@ -129,6 +130,18 @@ public class ControllerExceptionAdvice {
     protected ApiResponse<Object> handleHttpMediaTypeException(final HttpMediaTypeException e) {
         log.error(e.getMessage(), e);
         return ApiResponse.error(UNSUPPORTED_MEDIA_TYPE_EXCEPTION);
+    }
+
+    /**
+     * Feign Client Exception
+     */
+    @ExceptionHandler(FeignClientException.class)
+    protected ApiResponse<Object> handleFeignClientException(final FeignClientException e) {
+        log.error(e.getErrorMessage(), e);
+        if (e.getStatus() == UNAUTHORIZED_INVALID_TOKEN_EXCEPTION.getStatus()) {
+            return ApiResponse.error(UNAUTHORIZED_INVALID_TOKEN_EXCEPTION);
+        }
+        return ApiResponse.error(INTERNAL_SERVER_EXCEPTION);
     }
 
     /**
