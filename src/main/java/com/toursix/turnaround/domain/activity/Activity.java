@@ -23,8 +23,9 @@ public class Activity extends AuditingTimeEntity {
     @Enumerated(EnumType.STRING)
     private ActivityCategory category;
 
-    @Column(nullable = true)
-    private boolean isFree;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ActivityPaymentStatus paymentStatus;
 
     @Column(nullable = false, length = 100)
     private String name;
@@ -46,6 +47,9 @@ public class Activity extends AuditingTimeEntity {
 
     @Embedded
     private PayInfo payInfo;
+
+    @Column(nullable = false)
+    private int dailyParticipantsCnt;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "activity_guide_id", nullable = false)
