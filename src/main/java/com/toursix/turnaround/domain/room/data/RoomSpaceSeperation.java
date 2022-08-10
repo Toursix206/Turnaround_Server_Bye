@@ -1,9 +1,6 @@
 package com.toursix.turnaround.domain.room.data;
 
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
@@ -25,4 +22,21 @@ public class RoomSpaceSeperation {
 
     @Embedded
     private RoomElseSpace roomElseSpace;
+
+    @Builder(access = AccessLevel.PACKAGE)
+    public RoomSpaceSeperation(RoomSleep roomSleep, RoomLaundry roomLaundry, RoomOffice roomOffice, RoomElseSpace roomElseSpace) {
+        this.roomSleep = roomSleep;
+        this.roomLaundry = roomLaundry;
+        this.roomOffice = roomOffice;
+        this.roomElseSpace = roomElseSpace;
+    }
+
+    public static RoomSpaceSeperation of(RoomSleep roomSleep, RoomLaundry roomLaundry, RoomOffice roomOffice, RoomElseSpace roomElseSpace) {
+        return RoomSpaceSeperation.builder()
+                .roomSleep(roomSleep)
+                .roomLaundry(roomLaundry)
+                .roomOffice(roomOffice)
+                .roomElseSpace(roomElseSpace)
+                .build();
+    }
 }

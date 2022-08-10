@@ -2,6 +2,7 @@ package com.toursix.turnaround.domain.room.data;
 
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,4 +27,17 @@ public class RoomData extends AuditingTimeEntity {
 
     @Embedded
     private RoomSpaceSeperation roomSpaceSeperation;
+
+    @Builder(access = AccessLevel.PACKAGE)
+    public RoomData(RoomStructure roomStructure, RoomSpaceSeperation roomSpaceSeperation) {
+        this.roomStructure = roomStructure;
+        this.roomSpaceSeperation = roomSpaceSeperation;
+    }
+
+    public static RoomData of(RoomStructure roomStructure, RoomSpaceSeperation roomSpaceSeperation) {
+        return RoomData.builder()
+                .roomStructure(roomStructure)
+                .roomSpaceSeperation(roomSpaceSeperation)
+                .build();
+    }
 }
