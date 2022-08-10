@@ -2,8 +2,8 @@ package com.toursix.turnaround.controller.advice;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.toursix.turnaround.common.dto.ApiResponse;
-import com.toursix.turnaround.common.exception.BoilerplateException;
 import com.toursix.turnaround.common.exception.FeignClientException;
+import com.toursix.turnaround.common.exception.TurnaroundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Objects;
 
 import static com.toursix.turnaround.common.exception.ErrorCode.*;
@@ -43,7 +44,18 @@ public class ControllerExceptionAdvice {
 
     /**
      * 400 BadRequest
-     * 잘못된 Enum 값이 입된 경우 발생하는 Exception
+     * Pageable에 허용하지 않는 정렬기준이 입력된 경우 발생하는 Exception
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ConstraintViolationException.class)
+    protected ApiResponse<Object> handleConstraintViolationException(final ConstraintViolationException e) {
+        log.error(e.getMessage());
+        return ApiResponse.error(VALIDATION_SORT_TYPE_EXCEPTION);
+    }
+
+    /**
+     * 400 BadRequest
+     * 잘못된 Enum 값이 입력된 경우 발생하는 Exception
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -121,7 +133,7 @@ public class ControllerExceptionAdvice {
     }
 
     /**
-     * FeignException
+     * Feign Client Exception
      */
     @ExceptionHandler(FeignClientException.class)
     protected ApiResponse<Object> handleFeignClientException(final FeignClientException e) {
@@ -133,10 +145,10 @@ public class ControllerExceptionAdvice {
     }
 
     /**
-     * Boilerplate Custom Exception
+     * Turnaround Custom Exception
      */
-    @ExceptionHandler(BoilerplateException.class)
-    protected ResponseEntity<ApiResponse<Object>> handleBaseException(BoilerplateException exception) {
+    @ExceptionHandler(TurnaroundException.class)
+    protected ResponseEntity<ApiResponse<Object>> handleBaseException(TurnaroundException exception) {
         log.error(exception.getMessage(), exception);
         return ResponseEntity.status(exception.getStatus())
                 .body(ApiResponse.error(exception.getErrorCode()));
