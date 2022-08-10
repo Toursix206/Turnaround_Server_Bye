@@ -6,6 +6,7 @@ import com.toursix.turnaround.config.interceptor.Auth;
 import com.toursix.turnaround.config.resolver.UserId;
 import com.toursix.turnaround.service.user.UserRetrieveService;
 import com.toursix.turnaround.service.user.dto.response.CheckOnboardingInfoResponse;
+import com.toursix.turnaround.service.user.dto.response.UserMyPageResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,12 @@ public class UserRetrieveController {
     @GetMapping("/v1/user/onboarding/check")
     public ApiResponse<CheckOnboardingInfoResponse> checkMyOnboardingInfo(@ApiIgnore @UserId Long userId) {
         return ApiResponse.success(SuccessCode.CHECK_ONBOARDING_SUCCESS, userRetrieveService.checkMyOnboardingInfo(userId));
+    }
+
+    @ApiOperation("[인증] 마이 페이지 - 나의 정보를 확인합니다.")
+    @Auth
+    @GetMapping("/v1/user")
+    public ApiResponse<UserMyPageResponse> getUserMyPageInfo(@ApiIgnore @UserId Long userId) {
+        return ApiResponse.success(SuccessCode.READ_MYPAGE_SUCCESS, userRetrieveService.getUserMyPageInfo(userId));
     }
 }
