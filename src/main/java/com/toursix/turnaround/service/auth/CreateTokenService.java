@@ -33,7 +33,7 @@ public class CreateTokenService {
         String refreshToken = (String) redisTemplate.opsForValue().get("RT:" + userId);
 
         if (Objects.isNull(refreshToken)) {
-            throw new UnAuthorizedException(String.format("이미 만료된 리프레시 토큰 (%s) 입니다", request.getRefreshToken()));
+            throw new UnAuthorizedException(String.format("이미 만료된 리프레시 토큰 (%s) 입니다.", request.getRefreshToken()));
         }
         if (!refreshToken.equals(request.getRefreshToken())) {
             throw new UnAuthorizedException(String.format("해당 리프레시 토큰의 정보가 일치하지 않습니다.", request.getRefreshToken()));
