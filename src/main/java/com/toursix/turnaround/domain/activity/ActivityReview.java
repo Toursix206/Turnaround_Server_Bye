@@ -1,6 +1,5 @@
-package com.toursix.turnaround.domain.activityreview;
+package com.toursix.turnaround.domain.activity;
 
-import com.toursix.turnaround.domain.activity.Activity;
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
 import com.toursix.turnaround.domain.done.Done;
 import com.toursix.turnaround.domain.user.Onboarding;

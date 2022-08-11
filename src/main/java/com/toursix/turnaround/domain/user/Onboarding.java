@@ -1,6 +1,6 @@
 package com.toursix.turnaround.domain.user;
 
-import com.toursix.turnaround.domain.activityreview.ActivityReview;
+import com.toursix.turnaround.domain.activity.ActivityReview;
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
 import com.toursix.turnaround.domain.room.Room;
 import com.toursix.turnaround.domain.todo.Todo;
@@ -48,6 +48,9 @@ public class Onboarding extends AuditingTimeEntity {
     @Column(length = 100)
     private String gatePassword;
 
+    @Column(nullable = false, length = 300)
+    private String imageUrl;
+
     @Column(nullable = false)
     private boolean isChecked;
 
@@ -62,7 +65,8 @@ public class Onboarding extends AuditingTimeEntity {
     private final List<ActivityReview> activityReviews = new ArrayList<>();
 
     @Builder(access = AccessLevel.PACKAGE)
-    public Onboarding(String name, String email, String phoneNumber, GenderType gender, CleanAbilityType cleanAbility, String address, String detailAddress, String gatePassword, boolean isChecked, Room room) {
+    public Onboarding(String name, String email, String phoneNumber, GenderType gender, CleanAbilityType cleanAbility,
+                      String address, String detailAddress, String gatePassword, String imageUrl, boolean isChecked, Room room) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -71,6 +75,7 @@ public class Onboarding extends AuditingTimeEntity {
         this.address = address;
         this.detailAddress = detailAddress;
         this.gatePassword = gatePassword;
+        this.imageUrl = imageUrl;
         this.isChecked = isChecked;
         this.room = room;
     }
@@ -80,6 +85,7 @@ public class Onboarding extends AuditingTimeEntity {
                 .name(name)
                 .email(email)
                 .phoneNumber(phoneNumber)
+                .imageUrl("TODO - 기본 이미지 파일 경로로 수정")
                 .isChecked(false)
                 .room(room)
                 .build();

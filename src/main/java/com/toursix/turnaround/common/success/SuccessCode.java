@@ -22,6 +22,8 @@ public enum SuccessCode {
 
     // 활동
     READ_ACTIVITIES_SUCCESS(OK, "활동 리스트 조회 성공입니다."),
+    READ_ACTIVITY_SUCCESS(OK, "활동 조회 성공입니다."),
+    READ_ACTIVITY_REVIEWS_SUCCESS(OK, "활동 리뷰 리스트 조회 성공입니다."),
 
     // 마이페이지
     READ_MYPAGE_SUCCESS(OK, "마이페이지 조회 성공입니다."),
