@@ -1,6 +1,5 @@
 package com.toursix.turnaround.domain.activity;
 
-import com.toursix.turnaround.domain.activityreview.ActivityReview;
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
