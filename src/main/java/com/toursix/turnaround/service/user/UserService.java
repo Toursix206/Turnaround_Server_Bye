@@ -10,9 +10,9 @@ import com.toursix.turnaround.domain.user.repository.OnboardingRepository;
 import com.toursix.turnaround.domain.user.repository.PointRepository;
 import com.toursix.turnaround.domain.user.repository.SettingRepository;
 import com.toursix.turnaround.domain.user.repository.UserRepository;
-import com.toursix.turnaround.external.client.kakao.dto.response.KakaoProfileResponse;
+import com.toursix.turnaround.external.client.kakao.dto.response.KakaoAccountInfoResponse;
 import com.toursix.turnaround.service.user.dto.request.CreateUserDto;
-import com.toursix.turnaround.service.user.dto.request.UpdateOnboardingInfoRequestDto;
+import com.toursix.turnaround.service.user.dto.request.SetOnboardingInfoRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,20 +31,20 @@ public class UserService {
     @Transactional
     public Long registerUser(CreateUserDto request) {
         UserServiceUtils.validateNotExistsUser(userRepository, request.getSocialId(), request.getSocialType());
-        KakaoProfileResponse.KakaoAccount kakao_account = request.getKakao_account();
-        String email = (kakao_account.isHas_email()) ? kakao_account.getEmail() : "";
-        String phoneNumber = (kakao_account.isHas_phone_number()) ? kakao_account.getPhone_number() : "";
+        KakaoAccountInfoResponse kakaoAccountInfo = request.getKakaoAccountInfo();
+        String email = (kakaoAccountInfo.isHasEmail()) ? kakaoAccountInfo.getEmail() : "";
         Room room = roomRepository.save(Room.newInstance());
-        Onboarding onboarding = onboardingRepository.save(Onboarding.newInstance(kakao_account.getName(), email, phoneNumber, room));
+        Onboarding onboarding = onboardingRepository.save(Onboarding.newInstance(email, room));
         User user = userRepository.save(User.newInstance(request.getSocialId(), request.getSocialType(), onboarding, settingRepository.save(Setting.newInstance()), pointRepository.save(Point.newInstance())));
         return user.getId();
     }
 
+    //TODO - 인증된 전화번호인지 검증하는 로직 추가
     @Transactional
-    public void setOnboardingInfo(UpdateOnboardingInfoRequestDto request, Long userId) {
+    public void setOnboardingInfo(SetOnboardingInfoRequestDto request, Long userId) {
         User user = UserServiceUtils.findUserById(userRepository, userId);
         Onboarding onboarding = user.getOnboarding();
-        onboarding.updateInfo(request.getGender(), request.getCleanAbility(), request.getAddress(), request.getDetailAddress(), request.getGatePassword());
+        onboarding.setInfo(request.getName(), request.getPhoneNumber(), request.getGender(), request.getCleanAbility(), request.getAddress(), request.getDetailAddress(), request.getGatePassword());
         onboardingRepository.save(onboarding);
     }
 }

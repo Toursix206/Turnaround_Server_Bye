@@ -14,9 +14,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class KakaoProfileResponse {
+public class KakaoAccountInfoResponse {
 
-    private String id;
-
-    private KakaoAccountInfoResponse kakaoAccount;
+    private boolean hasEmail;
+    private String email;
 }
