@@ -4,6 +4,7 @@ import com.toursix.turnaround.domain.activity.repository.ActivityRepository;
 import com.toursix.turnaround.service.activity.dto.request.RetrieveActivitiesRequestDto;
 import com.toursix.turnaround.service.activity.dto.response.ActivityDetailInfoResponse;
 import com.toursix.turnaround.service.activity.dto.response.ActivityPagingResponse;
+import com.toursix.turnaround.service.activity.dto.response.ActivityReviewsPagingResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,9 @@ public class ActivityRetrieveService {
     //TODO - 결제 관련 업데이트 할 때 키트 정보 추가
     public ActivityDetailInfoResponse retrieveActivityById(Long activityId) {
         return ActivityDetailInfoResponse.of(ActivityServiceUtils.findActivityById(activityRepository, activityId));
+    }
+
+    public ActivityReviewsPagingResponse retrieveActivityReviewsUsingPaging(Long activityId, Pageable pageable) {
+        return ActivityReviewsPagingResponse.of(activityRepository.findActivityReviewsUsingPaging(ActivityServiceUtils.findActivityById(activityRepository, activityId), pageable));
     }
 }
