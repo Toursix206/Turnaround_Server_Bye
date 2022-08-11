@@ -32,6 +32,7 @@ public enum ErrorCode {
     NOT_FOUND_USER_EXCEPTION(NOT_FOUND, "탈퇴하거나 존재하지 않는 유저입니다"),
     NOT_FOUND_REFRESH_TOKEN_EXCEPTION(NOT_FOUND, "만료된 리프레시 토큰입니다."),
     NOT_FOUND_ONBOARDING_EXCEPTION(NOT_FOUND, "유저의 온보딩 정보가 존재하지 않습니다."),
+    NOT_FOUND_ACTIVITY_EXCEPTION(NOT_FOUND, "존재하지 않는 활동입니다"),
 
     // 405 Method Not Allowed
     METHOD_NOT_ALLOWED_EXCEPTION(METHOD_NOT_ALLOWED, "지원하지 않는 메소드 입니다"),

@@ -48,6 +48,15 @@ public class ActivityRepositoryImpl implements ActivityRepositoryCustom {
                 ).fetch().size());
     }
 
+    @Override
+    public Activity findActivityById(Long id) {
+        return queryFactory
+                .selectFrom(activity)
+                .where(activity.id.eq(id))
+                .fetchOne();
+
+    }
+
     private BooleanExpression eqPaymentStatus(ActivityPaymentStatus paymentStatus) {
         return activity.paymentStatus.eq(paymentStatus);
     }

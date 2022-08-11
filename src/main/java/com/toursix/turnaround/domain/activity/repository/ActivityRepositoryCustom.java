@@ -10,4 +10,6 @@ import org.springframework.data.domain.Pageable;
 public interface ActivityRepositoryCustom {
 
     Page<Activity> findActivitiesByFilterConditionUsingPaging(ActivityPaymentStatus paymentStatus, @Nullable ActivityCategory category, Pageable pageable);
+
+    Activity findActivityById(Long id);
 }
