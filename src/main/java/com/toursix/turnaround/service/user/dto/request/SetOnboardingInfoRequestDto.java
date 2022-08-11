@@ -10,11 +10,21 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class UpdateOnboardingInfoRequestDto {
+public class SetOnboardingInfoRequestDto {
+
+    @ApiModelProperty(value = "이름", example = "공혁준")
+    @NotBlank(message = "{onboarding.name.notBlank}")
+    private String name;
+
+    @ApiModelProperty(value = "핸드폰 번호", example = "010-1234-5678")
+    @NotBlank(message = "{onboarding.phoneNumber.notBlank}")
+    @Pattern(regexp = "^[0-9]{3}-([0-9]{3}|[0-9]{4})-[0-9]{4}$", message = "{onboarding.phoneNumber.pattern}")
+    private String phoneNumber;
 
     @ApiModelProperty(value = "성별 - MAN, WOMAN", example = "MAN")
     @NotNull(message = "{onboarding.gender.notNull}")

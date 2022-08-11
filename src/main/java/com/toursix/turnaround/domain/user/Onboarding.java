@@ -89,7 +89,10 @@ public class Onboarding extends AuditingTimeEntity {
                 .build();
     }
 
-    public void updateInfo(GenderType gender, CleanAbilityType cleanAbility, String address, String detailAddress, String gatePassword) {
+    public void setInfo(String name, String phoneNumber, GenderType gender, CleanAbilityType cleanAbility,
+                        String address, String detailAddress, String gatePassword) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
         this.gender = gender;
         this.cleanAbility = cleanAbility;
         this.address = address;
