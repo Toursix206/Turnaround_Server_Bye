@@ -1,6 +1,6 @@
 package com.toursix.turnaround.controller.activity;
 
-import com.toursix.turnaround.common.dto.ApiResponse;
+import com.toursix.turnaround.common.dto.SuccessResponse;
 import com.toursix.turnaround.common.success.SuccessCode;
 import com.toursix.turnaround.config.interceptor.Auth;
 import com.toursix.turnaround.config.validator.AllowedSortProperties;
@@ -32,26 +32,26 @@ public class ActivityRetrieveController {
     @ApiOperation("[인증] 진열 페이지 - 활동들을 카테고리, 정렬 조건에 맞게 스크롤 페이지네이션으로 조회합니다.")
     @Auth
     @GetMapping("/v1/activities")
-    public ApiResponse<ActivityPagingResponse> retrieveActivitiesUsingPaging(@Valid RetrieveActivitiesRequestDto request,
-                                                                             @AllowedSortProperties({"createdAt", "dailyParticipantsCnt"}) Pageable pageable) {
-        return ApiResponse.success(SuccessCode.READ_ACTIVITIES_SUCCESS, activityRetrieveService.retrieveActivitiesUsingPaging(request, pageable));
+    public SuccessResponse<ActivityPagingResponse> retrieveActivitiesUsingPaging(@Valid RetrieveActivitiesRequestDto request,
+                                                                                 @AllowedSortProperties({"createdAt", "dailyParticipantsCnt"}) Pageable pageable) {
+        return SuccessResponse.success(SuccessCode.READ_ACTIVITIES_SUCCESS, activityRetrieveService.retrieveActivitiesUsingPaging(request, pageable));
     }
 
     //TODO - 결제 관련 업데이트 할 때 키트 정보 추가
     @ApiOperation("[인증] 상세 페이지 - 특정 활동의 세부 정보를 조회합니다.")
     @Auth
     @GetMapping("/v1/activity/{activityId}")
-    public ApiResponse<ActivityDetailInfoResponse> retrieveActivityById(@ApiParam(name = "activityId", value = "조회할 activity의 id", required = true, example = "1")
-                                                                        @PathVariable Long activityId) {
-        return ApiResponse.success(SuccessCode.READ_ACTIVITY_SUCCESS, activityRetrieveService.retrieveActivityById(activityId));
+    public SuccessResponse<ActivityDetailInfoResponse> retrieveActivityById(@ApiParam(name = "activityId", value = "조회할 activity의 id", required = true, example = "1")
+                                                                            @PathVariable Long activityId) {
+        return SuccessResponse.success(SuccessCode.READ_ACTIVITY_SUCCESS, activityRetrieveService.retrieveActivityById(activityId));
     }
 
     @ApiOperation("[인증] 상세 페이지 - 특정 활동의 리뷰를 정렬 조건에 맞게 스크롤 페이지네이션으로 조회합니다.")
     @Auth
     @GetMapping("/v1/activity/{activityId}/reviews")
-    public ApiResponse<ActivityReviewsPagingResponse> retrieveActivityReviewsUsingPaging(@ApiParam(name = "activityId", value = "조회할 activity의 id", required = true, example = "1")
-                                                                                         @PathVariable Long activityId,
-                                                                                         @AllowedSortProperties({"createdAt", "grade"}) Pageable pageable) {
-        return ApiResponse.success(SuccessCode.READ_ACTIVITY_REVIEWS_SUCCESS, activityRetrieveService.retrieveActivityReviewsUsingPaging(activityId, pageable));
+    public SuccessResponse<ActivityReviewsPagingResponse> retrieveActivityReviewsUsingPaging(@ApiParam(name = "activityId", value = "조회할 activity의 id", required = true, example = "1")
+                                                                                             @PathVariable Long activityId,
+                                                                                             @AllowedSortProperties({"createdAt", "grade"}) Pageable pageable) {
+        return SuccessResponse.success(SuccessCode.READ_ACTIVITY_REVIEWS_SUCCESS, activityRetrieveService.retrieveActivityReviewsUsingPaging(activityId, pageable));
     }
 }

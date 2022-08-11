@@ -1,6 +1,6 @@
 package com.toursix.turnaround.controller.user;
 
-import com.toursix.turnaround.common.dto.ApiResponse;
+import com.toursix.turnaround.common.dto.SuccessResponse;
 import com.toursix.turnaround.config.interceptor.Auth;
 import com.toursix.turnaround.config.resolver.UserId;
 import com.toursix.turnaround.service.user.UserService;
@@ -25,8 +25,8 @@ public class UserController {
     @ApiOperation("[인증] 온보딩 페이지 - 나의 온보딩 정보를 설정합니다.")
     @Auth
     @PostMapping("/v1/user/onboarding")
-    public ApiResponse<String> setOnboardingInfo(@Valid @RequestBody SetOnboardingInfoRequestDto request, @ApiIgnore @UserId Long userId) {
+    public SuccessResponse<String> setOnboardingInfo(@Valid @RequestBody SetOnboardingInfoRequestDto request, @ApiIgnore @UserId Long userId) {
         userService.setOnboardingInfo(request, userId);
-        return ApiResponse.SUCCESS;
+        return SuccessResponse.SUCCESS;
     }
 }

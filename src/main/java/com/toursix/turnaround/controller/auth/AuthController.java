@@ -1,6 +1,6 @@
 package com.toursix.turnaround.controller.auth;
 
-import com.toursix.turnaround.common.dto.ApiResponse;
+import com.toursix.turnaround.common.dto.SuccessResponse;
 import com.toursix.turnaround.common.success.SuccessCode;
 import com.toursix.turnaround.controller.auth.dto.request.LoginRequestDto;
 import com.toursix.turnaround.controller.auth.dto.response.LoginResponse;
@@ -28,17 +28,17 @@ public class AuthController {
 
     @ApiOperation("로그인 페이지 - 로그인을 요청합니다")
     @PostMapping("/v1/auth/login")
-    public ApiResponse<LoginResponse> login(@Valid @RequestBody LoginRequestDto request) {
+    public SuccessResponse<LoginResponse> login(@Valid @RequestBody LoginRequestDto request) {
         AuthService authService = authServiceProvider.getAuthService(request.getSocialType());
         Long userId = authService.login(request.toServiceDto());
 
         TokenResponseDto tokenInfo = createTokenService.createTokenInfo(userId);
-        return ApiResponse.success(SuccessCode.LOGIN_SUCCESS, LoginResponse.of(userId, tokenInfo));
+        return SuccessResponse.success(SuccessCode.LOGIN_SUCCESS, LoginResponse.of(userId, tokenInfo));
     }
 
     @ApiOperation("JWT 인증 - Access Token을 갱신합니다.")
     @PostMapping("/v1/auth/refresh")
-    public ApiResponse<TokenResponseDto> reissue(@Valid @RequestBody TokenRequestDto request) {
-        return ApiResponse.success(SuccessCode.REISSUE_TOKEN_SUCCESS, createTokenService.reissueToken(request));
+    public SuccessResponse<TokenResponseDto> reissue(@Valid @RequestBody TokenRequestDto request) {
+        return SuccessResponse.success(SuccessCode.REISSUE_TOKEN_SUCCESS, createTokenService.reissueToken(request));
     }
 }
