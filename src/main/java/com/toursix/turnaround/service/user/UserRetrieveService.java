@@ -1,11 +1,7 @@
 package com.toursix.turnaround.service.user;
 
-import com.toursix.turnaround.domain.room.Room;
-import com.toursix.turnaround.domain.room.repository.RoomRepository;
 import com.toursix.turnaround.domain.user.Onboarding;
-import com.toursix.turnaround.domain.user.Point;
 import com.toursix.turnaround.domain.user.User;
-import com.toursix.turnaround.domain.user.repository.PointRepository;
 import com.toursix.turnaround.domain.user.repository.UserRepository;
 import com.toursix.turnaround.service.user.dto.response.CheckOnboardingInfoResponse;
 import com.toursix.turnaround.service.user.dto.response.UserMyPageResponse;
@@ -19,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserRetrieveService {
 
     private final UserRepository userRepository;
-    private final PointRepository pointRepository;
-    private final RoomRepository roomRepository;
 
     public CheckOnboardingInfoResponse checkMyOnboardingInfo(Long userId) {
         User user = UserServiceUtils.findUserById(userRepository, userId);
@@ -30,10 +24,6 @@ public class UserRetrieveService {
     }
 
     public UserMyPageResponse getUserMyPageInfo(Long userId) {
-        User user = UserServiceUtils.findUserById(userRepository, userId);
-        Onboarding onboarding = user.getOnboarding();
-        Point point = pointRepository.findPointById(user.getPoint().getId());
-        Room room = roomRepository.findRoomById(onboarding.getRoom().getId());
-        return UserMyPageResponse.of(onboarding, room, point);
+        return UserMyPageResponse.of(UserServiceUtils.findUserById(userRepository, userId));
     }
 }

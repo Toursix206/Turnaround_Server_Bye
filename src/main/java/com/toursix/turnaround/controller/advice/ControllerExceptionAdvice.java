@@ -1,7 +1,7 @@
 package com.toursix.turnaround.controller.advice;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.toursix.turnaround.common.dto.ApiResponse;
+import com.toursix.turnaround.common.dto.ErrorResponse;
 import com.toursix.turnaround.common.exception.FeignClientException;
 import com.toursix.turnaround.common.exception.TurnaroundException;
 import lombok.extern.slf4j.Slf4j;
@@ -36,10 +36,10 @@ public class ControllerExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
-    protected ApiResponse<Object> handleBadRequest(final BindException e) {
+    protected ErrorResponse handleBadRequest(final BindException e) {
         log.error(e.getMessage());
         FieldError fieldError = Objects.requireNonNull(e.getFieldError());
-        return ApiResponse.error(VALIDATION_EXCEPTION, String.format("%s (%s)", fieldError.getDefaultMessage(), fieldError.getField()));
+        return ErrorResponse.error(VALIDATION_EXCEPTION, String.format("%s (%s)", fieldError.getDefaultMessage(), fieldError.getField()));
     }
 
     /**
@@ -48,9 +48,9 @@ public class ControllerExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
-    protected ApiResponse<Object> handleConstraintViolationException(final ConstraintViolationException e) {
+    protected ErrorResponse handleConstraintViolationException(final ConstraintViolationException e) {
         log.error(e.getMessage());
-        return ApiResponse.error(VALIDATION_SORT_TYPE_EXCEPTION);
+        return ErrorResponse.error(VALIDATION_SORT_TYPE_EXCEPTION);
     }
 
     /**
@@ -59,9 +59,9 @@ public class ControllerExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    protected ApiResponse<Object> handleHttpMessageNotReadableException(final HttpMessageNotReadableException e) {
+    protected ErrorResponse handleHttpMessageNotReadableException(final HttpMessageNotReadableException e) {
         log.error(e.getMessage());
-        return ApiResponse.error(VALIDATION_ENUM_VALUE_EXCEPTION);
+        return ErrorResponse.error(VALIDATION_ENUM_VALUE_EXCEPTION);
     }
 
     /**
@@ -70,9 +70,9 @@ public class ControllerExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MissingRequestValueException.class)
-    protected ApiResponse<Object> handle(final MissingRequestValueException e) {
+    protected ErrorResponse handle(final MissingRequestValueException e) {
         log.error(e.getMessage());
-        return ApiResponse.error(VALIDATION_REQUEST_MISSING_EXCEPTION);
+        return ErrorResponse.error(VALIDATION_REQUEST_MISSING_EXCEPTION);
     }
 
     /**
@@ -81,9 +81,9 @@ public class ControllerExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(TypeMismatchException.class)
-    protected ApiResponse<Object> handleTypeMismatchException(final TypeMismatchException e) {
+    protected ErrorResponse handleTypeMismatchException(final TypeMismatchException e) {
         log.error(e.getMessage());
-        return ApiResponse.error(VALIDATION_WRONG_TYPE_EXCEPTION, String.format("%s (%s)", VALIDATION_WRONG_TYPE_EXCEPTION.getMessage(), e.getValue()));
+        return ErrorResponse.error(VALIDATION_WRONG_TYPE_EXCEPTION, String.format("%s (%s)", VALIDATION_WRONG_TYPE_EXCEPTION.getMessage(), e.getValue()));
     }
 
     /**
@@ -95,9 +95,9 @@ public class ControllerExceptionAdvice {
             ServletRequestBindingException.class,
             MethodArgumentTypeMismatchException.class
     })
-    protected ApiResponse<Object> handleInvalidFormatException(final Exception e) {
+    protected ErrorResponse handleInvalidFormatException(final Exception e) {
         log.error(e.getMessage());
-        return ApiResponse.error(VALIDATION_EXCEPTION);
+        return ErrorResponse.error(VALIDATION_EXCEPTION);
     }
 
     /**
@@ -106,9 +106,9 @@ public class ControllerExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    protected ApiResponse<Object> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+    protected ErrorResponse handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
         log.error(e.getMessage());
-        return ApiResponse.error(METHOD_NOT_ALLOWED_EXCEPTION);
+        return ErrorResponse.error(METHOD_NOT_ALLOWED_EXCEPTION);
     }
 
     /**
@@ -116,9 +116,9 @@ public class ControllerExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
-    protected ApiResponse<Object> handleHttpMediaTypeNotAcceptableException(HttpMediaTypeNotAcceptableException e) {
+    protected ErrorResponse handleHttpMediaTypeNotAcceptableException(HttpMediaTypeNotAcceptableException e) {
         log.error(e.getMessage());
-        return ApiResponse.error(NOT_ACCEPTABLE_EXCEPTION);
+        return ErrorResponse.error(NOT_ACCEPTABLE_EXCEPTION);
     }
 
     /**
@@ -127,31 +127,31 @@ public class ControllerExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     @ExceptionHandler(HttpMediaTypeException.class)
-    protected ApiResponse<Object> handleHttpMediaTypeException(final HttpMediaTypeException e) {
+    protected ErrorResponse handleHttpMediaTypeException(final HttpMediaTypeException e) {
         log.error(e.getMessage(), e);
-        return ApiResponse.error(UNSUPPORTED_MEDIA_TYPE_EXCEPTION);
+        return ErrorResponse.error(UNSUPPORTED_MEDIA_TYPE_EXCEPTION);
     }
 
     /**
      * Feign Client Exception
      */
     @ExceptionHandler(FeignClientException.class)
-    protected ApiResponse<Object> handleFeignClientException(final FeignClientException e) {
+    protected ErrorResponse handleFeignClientException(final FeignClientException e) {
         log.error(e.getErrorMessage(), e);
         if (e.getStatus() == UNAUTHORIZED_INVALID_TOKEN_EXCEPTION.getStatus()) {
-            return ApiResponse.error(UNAUTHORIZED_INVALID_TOKEN_EXCEPTION);
+            return ErrorResponse.error(UNAUTHORIZED_INVALID_TOKEN_EXCEPTION);
         }
-        return ApiResponse.error(INTERNAL_SERVER_EXCEPTION);
+        return ErrorResponse.error(INTERNAL_SERVER_EXCEPTION);
     }
 
     /**
      * Turnaround Custom Exception
      */
     @ExceptionHandler(TurnaroundException.class)
-    protected ResponseEntity<ApiResponse<Object>> handleBaseException(TurnaroundException exception) {
+    protected ResponseEntity<ErrorResponse> handleBaseException(TurnaroundException exception) {
         log.error(exception.getMessage(), exception);
         return ResponseEntity.status(exception.getStatus())
-                .body(ApiResponse.error(exception.getErrorCode()));
+                .body(ErrorResponse.error(exception.getErrorCode()));
     }
 
     /**
@@ -159,8 +159,8 @@ public class ControllerExceptionAdvice {
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    protected ApiResponse<Object> handleException(final Exception exception) {
+    protected ErrorResponse handleException(final Exception exception) {
         log.error(exception.getMessage(), exception);
-        return ApiResponse.error(INTERNAL_SERVER_EXCEPTION);
+        return ErrorResponse.error(INTERNAL_SERVER_EXCEPTION);
     }
 }

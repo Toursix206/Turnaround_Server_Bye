@@ -1,8 +1,6 @@
 package com.toursix.turnaround.service.user.dto.response;
 
-import com.toursix.turnaround.domain.room.Room;
-import com.toursix.turnaround.domain.user.Onboarding;
-import com.toursix.turnaround.domain.user.Point;
+import com.toursix.turnaround.domain.user.User;
 import lombok.*;
 
 @ToString
@@ -20,12 +18,12 @@ public class UserMyPageResponse {
 
     private int point;
 
-    public static UserMyPageResponse of(Onboarding onboarding, Room room, Point point) {
+    public static UserMyPageResponse of(User user) {
         return UserMyPageResponse.builder()
-                .name(onboarding.getName())
-                .level(room.getCleanLevel())
-                .email(onboarding.getEmail())
-                .point(point.getAmount())
+                .name(user.getOnboarding().getName())
+                .level(user.getOnboarding().getRoom().getCleanLevel())
+                .email(user.getOnboarding().getEmail())
+                .point(user.getPoint().getAmount())
                 .build();
     }
 }
