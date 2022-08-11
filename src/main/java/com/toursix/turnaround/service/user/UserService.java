@@ -10,7 +10,7 @@ import com.toursix.turnaround.domain.user.repository.OnboardingRepository;
 import com.toursix.turnaround.domain.user.repository.PointRepository;
 import com.toursix.turnaround.domain.user.repository.SettingRepository;
 import com.toursix.turnaround.domain.user.repository.UserRepository;
-import com.toursix.turnaround.external.client.kakao.dto.response.KakaoProfileResponse;
+import com.toursix.turnaround.external.client.kakao.dto.response.KakaoAccountInfoResponse;
 import com.toursix.turnaround.service.user.dto.request.CreateUserDto;
 import com.toursix.turnaround.service.user.dto.request.UpdateOnboardingInfoRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -31,11 +31,10 @@ public class UserService {
     @Transactional
     public Long registerUser(CreateUserDto request) {
         UserServiceUtils.validateNotExistsUser(userRepository, request.getSocialId(), request.getSocialType());
-        KakaoProfileResponse.KakaoAccount kakao_account = request.getKakao_account();
-        String email = (kakao_account.isHas_email()) ? kakao_account.getEmail() : "";
-        String phoneNumber = (kakao_account.isHas_phone_number()) ? kakao_account.getPhone_number() : "";
+        KakaoAccountInfoResponse kakaoAccountInfo = request.getKakaoAccountInfo();
+        String email = (kakaoAccountInfo.isHasEmail()) ? kakaoAccountInfo.getEmail() : "";
         Room room = roomRepository.save(Room.newInstance());
-        Onboarding onboarding = onboardingRepository.save(Onboarding.newInstance(kakao_account.getName(), email, phoneNumber, room));
+        Onboarding onboarding = onboardingRepository.save(Onboarding.newInstance(email, room));
         User user = userRepository.save(User.newInstance(request.getSocialId(), request.getSocialType(), onboarding, settingRepository.save(Setting.newInstance()), pointRepository.save(Point.newInstance())));
         return user.getId();
     }

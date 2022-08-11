@@ -1,8 +1,9 @@
 package com.toursix.turnaround.domain.user.repository;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.toursix.turnaround.domain.user.User;
 import com.toursix.turnaround.domain.user.UserSocialType;
-import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.toursix.turnaround.domain.user.UserStatus;
 import lombok.RequiredArgsConstructor;
 
 import static com.toursix.turnaround.domain.user.QUser.user;
@@ -18,7 +19,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .from(user)
                 .where(
                         user.socialInfo.socialId.eq(socialId),
-                        user.socialInfo.socialType.eq(socialType)
+                        user.socialInfo.socialType.eq(socialType),
+                        user.status.eq(UserStatus.ACTIVE)
                 ).fetchFirst() != null;
     }
 
@@ -26,7 +28,10 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     public User findUserById(Long id) {
         return queryFactory
                 .selectFrom(user)
-                .where(user.id.eq(id))
+                .where(
+                        user.id.eq(id),
+                        user.status.eq(UserStatus.ACTIVE)
+                )
                 .fetchOne();
     }
 
@@ -36,7 +41,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .selectFrom(user)
                 .where(
                         user.socialInfo.socialId.eq(socialId),
-                        user.socialInfo.socialType.eq(socialType)
+                        user.socialInfo.socialType.eq(socialType),
+                        user.status.eq(UserStatus.ACTIVE)
                 )
                 .fetchOne();
     }

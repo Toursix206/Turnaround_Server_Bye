@@ -80,11 +80,9 @@ public class Onboarding extends AuditingTimeEntity {
         this.room = room;
     }
 
-    public static Onboarding newInstance(String name, String email, String phoneNumber, Room room) {
+    public static Onboarding newInstance(String email, Room room) {
         return Onboarding.builder()
-                .name(name)
                 .email(email)
-                .phoneNumber(phoneNumber)
                 .imageUrl("TODO - 기본 이미지 파일 경로로 수정")
                 .isChecked(false)
                 .room(room)
