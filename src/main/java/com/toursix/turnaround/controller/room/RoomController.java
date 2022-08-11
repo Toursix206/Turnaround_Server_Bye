@@ -1,6 +1,7 @@
 package com.toursix.turnaround.controller.room;
 
 import com.toursix.turnaround.common.dto.SuccessResponse;
+import com.toursix.turnaround.common.success.SuccessCode;
 import com.toursix.turnaround.config.interceptor.Auth;
 import com.toursix.turnaround.service.room.RoomService;
 import com.toursix.turnaround.service.room.dto.request.CreateRoomDataRequestDto;
@@ -30,6 +31,6 @@ public class RoomController {
                                                   @ApiParam(name = "images", value = "방 촬영 이미지 파일 4개", required = true)
                                                   @RequestPart List<MultipartFile> images) {
         roomService.createRoomData(request, images);
-        return SuccessResponse.SUCCESS;
+        return SuccessResponse.success(SuccessCode.CREATE_ROOM_DATA_SUCCESS, null);
     }
 }

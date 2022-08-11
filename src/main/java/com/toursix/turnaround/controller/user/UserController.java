@@ -1,6 +1,7 @@
 package com.toursix.turnaround.controller.user;
 
 import com.toursix.turnaround.common.dto.SuccessResponse;
+import com.toursix.turnaround.common.success.SuccessCode;
 import com.toursix.turnaround.config.interceptor.Auth;
 import com.toursix.turnaround.config.resolver.UserId;
 import com.toursix.turnaround.service.user.UserService;
@@ -27,6 +28,6 @@ public class UserController {
     @PostMapping("/v1/user/onboarding")
     public SuccessResponse<String> setOnboardingInfo(@Valid @RequestBody SetOnboardingInfoRequestDto request, @ApiIgnore @UserId Long userId) {
         userService.setOnboardingInfo(request, userId);
-        return SuccessResponse.SUCCESS;
+        return SuccessResponse.success(SuccessCode.SET_ONBOARDING_SUCCESS, null);
     }
 }

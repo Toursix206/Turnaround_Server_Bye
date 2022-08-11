@@ -4,13 +4,16 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import static com.toursix.turnaround.common.success.SuccessStatusCode.CREATED;
 import static com.toursix.turnaround.common.success.SuccessStatusCode.OK;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum SuccessCode {
 
-    // 200 OK
+    /**
+     * 200 OK
+     */
     SUCCESS(OK, "성공입니다."),
 
     // 인증
@@ -19,6 +22,7 @@ public enum SuccessCode {
 
     // 온보딩
     CHECK_ONBOARDING_SUCCESS(OK, "온보딩 등록여부 조회 성공입니다."),
+    SET_ONBOARDING_SUCCESS(OK, "온보딩 정보 설정 성공입니다."),
 
     // 활동
     READ_ACTIVITIES_SUCCESS(OK, "활동 리스트 조회 성공입니다."),
@@ -28,11 +32,18 @@ public enum SuccessCode {
     // 마이페이지
     READ_MYPAGE_SUCCESS(OK, "마이페이지 조회 성공입니다."),
 
-    // 201 CREATED
+    /**
+     * 201 CREATED
+     */
+    CREATE_ROOM_DATA_SUCCESS(CREATED, "방 라벨링 데이터 생성 성공입니다."),
 
-    // 202 ACCEPTED
+    /**
+     * 202 ACCEPTED
+     */
 
-    // 204 NO_CONTENT
+    /**
+     * 204 NO_CONTENT
+     */
     ;
 
     private final SuccessStatusCode statusCode;
