@@ -8,6 +8,7 @@ import com.toursix.turnaround.config.resolver.UserId;
 import com.toursix.turnaround.service.user.UserRetrieveService;
 import com.toursix.turnaround.service.user.dto.response.CheckOnboardingInfoResponse;
 import com.toursix.turnaround.service.user.dto.response.UserMyPageResponse;
+import com.toursix.turnaround.service.user.dto.response.UserSettingResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -54,5 +55,21 @@ public class UserRetrieveController {
     @GetMapping("/v1/user")
     public SuccessResponse<UserMyPageResponse> getUserMyPageInfo(@ApiIgnore @UserId Long userId) {
         return SuccessResponse.success(SuccessCode.READ_MYPAGE_SUCCESS, userRetrieveService.getUserMyPageInfo(userId));
+    }
+
+    @ApiOperation(
+            value = "[인증] 마이 페이지 - 나의 설정 정보를 조회합니다.",
+            notes = "혜택 및 이벤트 정보 수신 동의, 활동 푸시 알림 수신 동의, 이벤트 참여 정보 제공 동의를 조회합니다."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "나의 설정 정보 조회 성공입니다."),
+            @ApiResponse(code = 401, message = "토큰이 만료되었습니다. 다시 로그인 해주세요.", response = ErrorResponse.class),
+            @ApiResponse(code = 404, message = "탈퇴했거나 존재하지 않는 유저입니다.", response = ErrorResponse.class),
+            @ApiResponse(code = 500, message = "예상치 못한 서버 에러가 발생하였습니다.", response = ErrorResponse.class)
+    })
+    @Auth
+    @GetMapping("/v1/user/setting")
+    public SuccessResponse<UserSettingResponse> getUserMyPageSettingInfo(@ApiIgnore @UserId Long userId) {
+        return SuccessResponse.success(SuccessCode.READ_MYPAGE_SETTINGS_SUCCESS, userRetrieveService.getUserMyPageSettingInfo(userId));
     }
 }
