@@ -5,6 +5,7 @@ import com.toursix.turnaround.domain.user.User;
 import com.toursix.turnaround.domain.user.repository.UserRepository;
 import com.toursix.turnaround.service.user.dto.response.CheckOnboardingInfoResponse;
 import com.toursix.turnaround.service.user.dto.response.UserMyPageResponse;
+import com.toursix.turnaround.service.user.dto.response.UserSettingResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,5 +26,10 @@ public class UserRetrieveService {
 
     public UserMyPageResponse getUserMyPageInfo(Long userId) {
         return UserMyPageResponse.of(UserServiceUtils.findUserById(userRepository, userId));
+    }
+
+    public UserSettingResponse getUserMyPageSettingInfo(Long userId) {
+        User user = UserServiceUtils.findUserById(userRepository, userId);
+        return UserSettingResponse.of(user.getSetting());
     }
 }

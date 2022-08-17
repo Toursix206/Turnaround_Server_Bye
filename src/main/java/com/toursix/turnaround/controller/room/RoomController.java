@@ -30,7 +30,7 @@ public class RoomController {
                     "이미지 파일이 존재하지 않거나 4장이 아닌 경우 400 에러가 납니다."
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "방 라벨링 데이터 생성 성공입니다."),
+            @ApiResponse(code = 201, message = "방 라벨링 데이터 생성 성공입니다."),
             @ApiResponse(code = 400, message = "잘못된 요청입니다.", response = ErrorResponse.class),
             @ApiResponse(code = 401, message = "토큰이 만료되었습니다. 다시 로그인 해주세요.", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "예상치 못한 서버 에러가 발생하였습니다.", response = ErrorResponse.class)
