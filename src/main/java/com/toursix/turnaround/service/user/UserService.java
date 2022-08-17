@@ -18,8 +18,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.Valid;
-
 @RequiredArgsConstructor
 @Service
 @Transactional(readOnly = true)
@@ -52,10 +50,12 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUserMyPageSettingInfo(@Valid UpdateUserSettingRequestDto request, Long userId) {
+    public void updateUserMyPageSettingInfo(UpdateUserSettingRequestDto request, Long userId) {
         User user = UserServiceUtils.findUserById(userRepository, userId);
         Setting setting = user.getSetting();
-        setting.updateInfo(request);
-        settingRepository.save(setting);
+        if (!request.isEmpty()) {
+            setting.updateInfo(request);
+            settingRepository.save(setting);
+        }
     }
 }
