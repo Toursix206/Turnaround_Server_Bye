@@ -13,9 +13,12 @@ import com.toursix.turnaround.domain.user.repository.UserRepository;
 import com.toursix.turnaround.external.client.kakao.dto.response.KakaoAccountInfoResponse;
 import com.toursix.turnaround.service.user.dto.request.CreateUserDto;
 import com.toursix.turnaround.service.user.dto.request.SetOnboardingInfoRequestDto;
+import com.toursix.turnaround.service.user.dto.request.UpdateUserSettingRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Service
@@ -46,5 +49,13 @@ public class UserService {
         Onboarding onboarding = user.getOnboarding();
         onboarding.setInfo(request.getName(), request.getPhoneNumber(), request.getGender(), request.getCleanAbility(), request.getAddress(), request.getDetailAddress(), request.getGatePassword());
         onboardingRepository.save(onboarding);
+    }
+
+    @Transactional
+    public void updateUserMyPageSettingInfo(@Valid UpdateUserSettingRequestDto request, Long userId) {
+        User user = UserServiceUtils.findUserById(userRepository, userId);
+        Setting setting = user.getSetting();
+        setting.updateInfo(request);
+        settingRepository.save(setting);
     }
 }

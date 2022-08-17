@@ -1,6 +1,7 @@
 package com.toursix.turnaround.domain.user;
 
 import com.toursix.turnaround.domain.common.AuditingTimeEntity;
+import com.toursix.turnaround.service.user.dto.request.UpdateUserSettingRequestDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,5 +40,11 @@ public class Setting extends AuditingTimeEntity {
                 .agreePushNotification(true)
                 .agreeJoinEvent(false)
                 .build();
+    }
+
+    public void updateInfo(UpdateUserSettingRequestDto request) {
+        this.agreeBenefitAndEvent = request.isAgreeBenefitAndEvent();
+        this.agreePushNotification = request.isAgreePushNotification();
+        this.agreeJoinEvent = request.isAgreeJoinEvent();
     }
 }

@@ -32,6 +32,7 @@ public enum SuccessCode {
     // 마이페이지
     READ_MYPAGE_SUCCESS(OK, "마이페이지 조회 성공입니다."),
     READ_MYPAGE_SETTINGS_SUCCESS(OK, "나의 설정 정보 조회 성공입니다."),
+    UPDATE_MYPAGE_SETTINGS_SUCCESS(OK, "나의 설정 정보 수정 성공입니다."),
 
     /**
      * 201 CREATED
