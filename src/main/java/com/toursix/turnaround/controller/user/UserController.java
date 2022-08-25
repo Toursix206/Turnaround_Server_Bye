@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +54,7 @@ public class UserController {
     })
     @Auth
     @PostMapping("/v1/user/onboarding")
-    public SuccessResponse<String> setOnboardingInfo(@Valid @RequestBody SetOnboardingInfoRequestDto request, @ApiIgnore @UserId Long userId) {
+    public ResponseEntity<String> setOnboardingInfo(@Valid @RequestBody SetOnboardingInfoRequestDto request, @ApiIgnore @UserId Long userId) {
         userService.setOnboardingInfo(request, userId);
         return SuccessResponse.success(SuccessCode.SET_ONBOARDING_SUCCESS, null);
     }
@@ -73,7 +74,7 @@ public class UserController {
     })
     @Auth
     @PatchMapping("/v1/user/setting")
-    public SuccessResponse<String> updateUserMyPageSettingInfo(@Valid @RequestBody UpdateUserSettingRequestDto request, @ApiIgnore @UserId Long userId) {
+    public ResponseEntity<String> updateUserMyPageSettingInfo(@Valid @RequestBody UpdateUserSettingRequestDto request, @ApiIgnore @UserId Long userId) {
         userService.updateUserMyPageSettingInfo(request, userId);
         return SuccessResponse.success(SuccessCode.UPDATE_MYPAGE_SETTINGS_SUCCESS, null);
     }

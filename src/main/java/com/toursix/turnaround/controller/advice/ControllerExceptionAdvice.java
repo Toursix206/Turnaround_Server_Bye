@@ -136,12 +136,14 @@ public class ControllerExceptionAdvice {
      * Feign Client Exception
      */
     @ExceptionHandler(FeignClientException.class)
-    protected ErrorResponse handleFeignClientException(final FeignClientException e) {
+    protected ResponseEntity<ErrorResponse> handleFeignClientException(final FeignClientException e) {
         log.error(e.getErrorMessage(), e);
         if (e.getStatus() == UNAUTHORIZED_INVALID_TOKEN_EXCEPTION.getStatus()) {
-            return ErrorResponse.error(UNAUTHORIZED_INVALID_TOKEN_EXCEPTION);
+            return ResponseEntity.status(UNAUTHORIZED_INVALID_TOKEN_EXCEPTION.getStatus())
+                    .body(ErrorResponse.error(UNAUTHORIZED_INVALID_TOKEN_EXCEPTION));
         }
-        return ErrorResponse.error(INTERNAL_SERVER_EXCEPTION);
+        return ResponseEntity.status(INTERNAL_SERVER_EXCEPTION.getStatus())
+                .body(ErrorResponse.error(INTERNAL_SERVER_EXCEPTION));
     }
 
     /**

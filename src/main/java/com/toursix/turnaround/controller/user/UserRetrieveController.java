@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
@@ -37,7 +38,7 @@ public class UserRetrieveController {
     })
     @Auth
     @GetMapping("/v1/user/onboarding/check")
-    public SuccessResponse<CheckOnboardingInfoResponse> checkMyOnboardingInfo(@ApiIgnore @UserId Long userId) {
+    public ResponseEntity<CheckOnboardingInfoResponse> checkMyOnboardingInfo(@ApiIgnore @UserId Long userId) {
         return SuccessResponse.success(SuccessCode.CHECK_ONBOARDING_SUCCESS, userRetrieveService.checkMyOnboardingInfo(userId));
     }
 
@@ -53,7 +54,7 @@ public class UserRetrieveController {
     })
     @Auth
     @GetMapping("/v1/user")
-    public SuccessResponse<UserMyPageResponse> getUserMyPageInfo(@ApiIgnore @UserId Long userId) {
+    public ResponseEntity<UserMyPageResponse> getUserMyPageInfo(@ApiIgnore @UserId Long userId) {
         return SuccessResponse.success(SuccessCode.READ_MYPAGE_SUCCESS, userRetrieveService.getUserMyPageInfo(userId));
     }
 
@@ -69,7 +70,7 @@ public class UserRetrieveController {
     })
     @Auth
     @GetMapping("/v1/user/setting")
-    public SuccessResponse<UserSettingResponse> getUserMyPageSettingInfo(@ApiIgnore @UserId Long userId) {
+    public ResponseEntity<UserSettingResponse> getUserMyPageSettingInfo(@ApiIgnore @UserId Long userId) {
         return SuccessResponse.success(SuccessCode.READ_MYPAGE_SETTINGS_SUCCESS, userRetrieveService.getUserMyPageSettingInfo(userId));
     }
 }

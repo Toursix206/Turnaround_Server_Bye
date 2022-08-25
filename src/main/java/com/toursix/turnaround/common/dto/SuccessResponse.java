@@ -2,6 +2,7 @@ package com.toursix.turnaround.common.dto;
 
 import com.toursix.turnaround.common.success.SuccessCode;
 import lombok.*;
+import org.springframework.http.ResponseEntity;
 
 @ToString
 @Getter
@@ -9,14 +10,13 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class SuccessResponse<T> {
 
-    public static final SuccessResponse<String> SUCCESS = success(SuccessCode.SUCCESS, null);
-
     private int status;
     private boolean success;
     private String message;
     private T data;
 
-    public static <T> SuccessResponse<T> success(SuccessCode successCode, T data) {
-        return new SuccessResponse<>(successCode.getStatus(), true, successCode.getMessage(), data);
+    public static <T> ResponseEntity<T> success(SuccessCode successCode, T data) {
+        return (ResponseEntity<T>) ResponseEntity.status(successCode.getStatus())
+                .body(new SuccessResponse(successCode.getStatus(), true, successCode.getMessage(), data));
     }
 }

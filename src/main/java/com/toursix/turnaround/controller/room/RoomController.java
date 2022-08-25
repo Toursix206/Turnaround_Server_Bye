@@ -8,6 +8,7 @@ import com.toursix.turnaround.service.room.RoomService;
 import com.toursix.turnaround.service.room.dto.request.CreateRoomDataRequestDto;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,9 +38,9 @@ public class RoomController {
     })
     @Auth
     @PostMapping("/v1/room/data")
-    public SuccessResponse<String> createRoomData(@Valid CreateRoomDataRequestDto request,
-                                                  @ApiParam(name = "images", value = "방 촬영 이미지 파일 4개", required = true)
-                                                  @RequestPart List<MultipartFile> images) {
+    public ResponseEntity<String> createRoomData(@Valid CreateRoomDataRequestDto request,
+                                                 @ApiParam(name = "images", value = "방 촬영 이미지 파일 4개", required = true)
+                                                 @RequestPart List<MultipartFile> images) {
         roomService.createRoomData(request, images);
         return SuccessResponse.success(SuccessCode.CREATE_ROOM_DATA_SUCCESS, null);
     }
