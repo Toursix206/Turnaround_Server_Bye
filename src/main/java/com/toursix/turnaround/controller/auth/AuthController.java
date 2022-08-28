@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,7 +48,7 @@ public class AuthController {
             @ApiResponse(code = 500, message = "예상치 못한 서버 에러가 발생하였습니다.", response = ErrorResponse.class)
     })
     @PostMapping("/v1/auth/login")
-    public SuccessResponse<LoginResponse> login(@Valid @RequestBody LoginRequestDto request) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequestDto request) {
         AuthService authService = authServiceProvider.getAuthService(request.getSocialType());
         Long userId = authService.login(request.toServiceDto());
 
@@ -71,7 +72,7 @@ public class AuthController {
             @ApiResponse(code = 500, message = "예상치 못한 서버 에러가 발생하였습니다.", response = ErrorResponse.class)
     })
     @PostMapping("/v1/auth/refresh")
-    public SuccessResponse<TokenResponseDto> reissue(@Valid @RequestBody TokenRequestDto request) {
+    public ResponseEntity<TokenResponseDto> reissue(@Valid @RequestBody TokenRequestDto request) {
         return SuccessResponse.success(SuccessCode.REISSUE_TOKEN_SUCCESS, createTokenService.reissueToken(request));
     }
 }

@@ -13,6 +13,7 @@ import com.toursix.turnaround.service.activity.dto.response.ActivityReviewsPagin
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,8 +47,8 @@ public class ActivityRetrieveController {
     })
     @Auth
     @GetMapping("/v1/activities")
-    public SuccessResponse<ActivityPagingResponse> retrieveActivitiesUsingPaging(@Valid RetrieveActivitiesRequestDto request,
-                                                                                 @AllowedSortProperties({"createdAt", "dailyParticipantsCnt"}) Pageable pageable) {
+    public ResponseEntity<ActivityPagingResponse> retrieveActivitiesUsingPaging(@Valid RetrieveActivitiesRequestDto request,
+                                                                                @AllowedSortProperties({"createdAt", "dailyParticipantsCnt"}) Pageable pageable) {
         return SuccessResponse.success(SuccessCode.READ_ACTIVITIES_SUCCESS, activityRetrieveService.retrieveActivitiesUsingPaging(request, pageable));
     }
 
@@ -65,8 +66,8 @@ public class ActivityRetrieveController {
     })
     @Auth
     @GetMapping("/v1/activity/{activityId}")
-    public SuccessResponse<ActivityDetailInfoResponse> retrieveActivityById(@ApiParam(name = "activityId", value = "조회할 activity의 id", required = true, example = "1")
-                                                                            @PathVariable Long activityId) {
+    public ResponseEntity<ActivityDetailInfoResponse> retrieveActivityById(@ApiParam(name = "activityId", value = "조회할 activity의 id", required = true, example = "1")
+                                                                           @PathVariable Long activityId) {
         return SuccessResponse.success(SuccessCode.READ_ACTIVITY_SUCCESS, activityRetrieveService.retrieveActivityById(activityId));
     }
 
@@ -87,9 +88,9 @@ public class ActivityRetrieveController {
     })
     @Auth
     @GetMapping("/v1/activity/{activityId}/reviews")
-    public SuccessResponse<ActivityReviewsPagingResponse> retrieveActivityReviewsUsingPaging(@ApiParam(name = "activityId", value = "조회할 activity의 id", required = true, example = "1")
-                                                                                             @PathVariable Long activityId,
-                                                                                             @AllowedSortProperties({"createdAt", "grade"}) Pageable pageable) {
+    public ResponseEntity<ActivityReviewsPagingResponse> retrieveActivityReviewsUsingPaging(@ApiParam(name = "activityId", value = "조회할 activity의 id", required = true, example = "1")
+                                                                                            @PathVariable Long activityId,
+                                                                                            @AllowedSortProperties({"createdAt", "grade"}) Pageable pageable) {
         return SuccessResponse.success(SuccessCode.READ_ACTIVITY_REVIEWS_SUCCESS, activityRetrieveService.retrieveActivityReviewsUsingPaging(activityId, pageable));
     }
 }

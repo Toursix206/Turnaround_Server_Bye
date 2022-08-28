@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
@@ -39,7 +40,7 @@ public class UserRetrieveController {
     })
     @Auth
     @GetMapping("/v1/user/onboarding/check")
-    public SuccessResponse<CheckOnboardingInfoResponse> checkMyOnboardingInfo(
+    public ResponseEntity<CheckOnboardingInfoResponse> checkMyOnboardingInfo(
         @ApiIgnore @UserId Long userId) {
         return SuccessResponse.success(SuccessCode.CHECK_ONBOARDING_SUCCESS,
             userRetrieveService.checkMyOnboardingInfo(userId));
@@ -57,7 +58,7 @@ public class UserRetrieveController {
     })
     @Auth
     @GetMapping("/v1/user")
-    public SuccessResponse<UserMyPageResponse> getUserMyPageInfo(@ApiIgnore @UserId Long userId) {
+    public ResponseEntity<UserMyPageResponse> getUserMyPageInfo(@ApiIgnore @UserId Long userId) {
         return SuccessResponse.success(SuccessCode.READ_MYPAGE_SUCCESS,
             userRetrieveService.getUserMyPageInfo(userId));
     }
@@ -74,12 +75,12 @@ public class UserRetrieveController {
     })
     @Auth
     @GetMapping("/v1/user/setting")
-    public SuccessResponse<UserSettingResponse> getUserMyPageSettingInfo(
+    public ResponseEntity<UserSettingResponse> getUserMyPageSettingInfo(
         @ApiIgnore @UserId Long userId) {
         return SuccessResponse.success(SuccessCode.READ_MYPAGE_SETTINGS_SUCCESS,
             userRetrieveService.getUserMyPageSettingInfo(userId));
     }
-
+    
     @ApiOperation(
         value = "마이 페이지 - 고객센터 정보를 조회합니다.",
         notes = "고객센터 문의 및 스토어 리뷰 남기기를 위한 연결 링크를 조회합니다."
@@ -89,7 +90,7 @@ public class UserRetrieveController {
         @ApiResponse(code = 500, message = "예상치 못한 서버 에러가 발생하였습니다.", response = ErrorResponse.class)
     })
     @GetMapping("/v1/user/contact")
-    public SuccessResponse<List<ContactUsResponse>> getUserMyPageContactInfo() {
+    public ResponseEntity<List<ContactUsResponse>> getUserMyPageContactInfo() {
         return SuccessResponse.success(SuccessCode.READ_MYPAGE_CONTACT_SUCCESS,
             userRetrieveService.getUserMyPageContactInfo());
     }
