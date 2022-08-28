@@ -1,11 +1,11 @@
 package com.toursix.turnaround.common.success;
 
+import static com.toursix.turnaround.common.success.SuccessStatusCode.CREATED;
+import static com.toursix.turnaround.common.success.SuccessStatusCode.OK;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-
-import static com.toursix.turnaround.common.success.SuccessStatusCode.CREATED;
-import static com.toursix.turnaround.common.success.SuccessStatusCode.OK;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -33,6 +33,7 @@ public enum SuccessCode {
     READ_MYPAGE_SUCCESS(OK, "마이페이지 조회 성공입니다."),
     READ_MYPAGE_SETTINGS_SUCCESS(OK, "나의 설정 정보 조회 성공입니다."),
     UPDATE_MYPAGE_SETTINGS_SUCCESS(OK, "나의 설정 정보 수정 성공입니다."),
+    READ_MYPAGE_CONTACT_SUCCESS(OK, "고객센터 정보 조회 성공입니다."),
 
     /**
      * 201 CREATED
