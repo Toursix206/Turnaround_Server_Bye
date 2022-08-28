@@ -61,10 +61,12 @@ public class UserController {
     //TODO 200 -> 204로 수정 필요
     @ApiOperation(
             value = "[인증] 마이 페이지 - 나의 설정 정보를 수정합니다.",
-            notes = "혜택 및 이벤트 정보 수신 동의, 활동 푸시 알림 수신 동의, 이벤트 참여 정보 제공 동의를 수정합니다."
+            notes = "혜택 및 이벤트 정보 수신 동의, 활동 푸시 알림 수신 동의, 이벤트 참여 정보 제공 동의를 수정합니다.\n" +
+                    "최소 1개의 값(boolean)을 보내주어야 합니다."
     )
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "나의 설정 정보 수정 성공입니다."),
+            @ApiResponse(code = 400, message = "잘못된 요청입니다.", response = ErrorResponse.class),
             @ApiResponse(code = 401, message = "토큰이 만료되었습니다. 다시 로그인 해주세요.", response = ErrorResponse.class),
             @ApiResponse(code = 404, message = "탈퇴했거나 존재하지 않는 유저입니다.", response = ErrorResponse.class),
             @ApiResponse(code = 500, message = "예상치 못한 서버 에러가 발생하였습니다.", response = ErrorResponse.class)

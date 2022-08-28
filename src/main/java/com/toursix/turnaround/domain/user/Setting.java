@@ -43,8 +43,14 @@ public class Setting extends AuditingTimeEntity {
     }
 
     public void updateInfo(UpdateUserSettingRequestDto request) {
-        this.agreeBenefitAndEvent = request.isAgreeBenefitAndEvent();
-        this.agreePushNotification = request.isAgreePushNotification();
-        this.agreeJoinEvent = request.isAgreeJoinEvent();
+        if (request.getAgreeBenefitAndEvent() != null) {
+            this.agreeBenefitAndEvent = request.getAgreeBenefitAndEvent();
+        }
+        if (request.getAgreePushNotification() != null) {
+            this.agreePushNotification = request.getAgreePushNotification();
+        }
+        if (request.getAgreeJoinEvent() != null) {
+            this.agreeJoinEvent = request.getAgreeJoinEvent();
+        }
     }
 }

@@ -33,12 +33,16 @@ public class UserService {
 
     @Transactional
     public Long registerUser(CreateUserDto request) {
-        UserServiceUtils.validateNotExistsUser(userRepository, request.getSocialId(), request.getSocialType());
+        UserServiceUtils.validateNotExistsUser(userRepository, request.getSocialId(),
+            request.getSocialType());
         KakaoAccountInfoResponse kakaoAccountInfo = request.getKakaoAccountInfo();
         String email = (kakaoAccountInfo.isHasEmail()) ? kakaoAccountInfo.getEmail() : "";
         Room room = roomRepository.save(Room.newInstance());
         Onboarding onboarding = onboardingRepository.save(Onboarding.newInstance(email, room));
-        User user = userRepository.save(User.newInstance(request.getSocialId(), request.getSocialType(), onboarding, settingRepository.save(Setting.newInstance()), pointRepository.save(Point.newInstance())));
+        User user = userRepository.save(
+            User.newInstance(request.getSocialId(), request.getSocialType(), onboarding,
+                settingRepository.save(Setting.newInstance()),
+                pointRepository.save(Point.newInstance())));
         return user.getId();
     }
 
@@ -47,15 +51,18 @@ public class UserService {
     public void setOnboardingInfo(SetOnboardingInfoRequestDto request, Long userId) {
         User user = UserServiceUtils.findUserById(userRepository, userId);
         Onboarding onboarding = user.getOnboarding();
-        onboarding.setInfo(request.getName(), request.getPhoneNumber(), request.getGender(), request.getCleanAbility(), request.getAddress(), request.getDetailAddress(), request.getGatePassword());
+        onboarding.setInfo(request.getName(), request.getPhoneNumber(), request.getGender(),
+            request.getCleanAbility(), request.getAddress(), request.getDetailAddress(),
+            request.getGatePassword());
         onboardingRepository.save(onboarding);
     }
 
     @Transactional
-    public void updateUserMyPageSettingInfo(@Valid UpdateUserSettingRequestDto request, Long userId) {
+    public void updateUserMyPageSettingInfo(UpdateUserSettingRequestDto request, Long userId) {
         User user = UserServiceUtils.findUserById(userRepository, userId);
         Setting setting = user.getSetting();
-        setting.updateInfo(request);
-        settingRepository.save(setting);
+        if (!request.isEmpty()) {
+            setting.updateInfo(request);
+        }
     }
 }
