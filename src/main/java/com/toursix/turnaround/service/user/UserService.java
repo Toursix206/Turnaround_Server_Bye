@@ -15,6 +15,7 @@ import com.toursix.turnaround.service.user.dto.request.CreateUserDto;
 import com.toursix.turnaround.service.user.dto.request.SetOnboardingInfoRequestDto;
 import com.toursix.turnaround.service.user.dto.request.UpdateUserSettingRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,30 +29,31 @@ public class UserService {
     private final PointRepository pointRepository;
     private final OnboardingRepository onboardingRepository;
     private final RoomRepository roomRepository;
+    private final RedisTemplate redisTemplate;
 
     @Transactional
     public Long registerUser(CreateUserDto request) {
         UserServiceUtils.validateNotExistsUser(userRepository, request.getSocialId(),
-            request.getSocialType());
+                request.getSocialType());
         KakaoAccountInfoResponse kakaoAccountInfo = request.getKakaoAccountInfo();
         String email = (kakaoAccountInfo.isHasEmail()) ? kakaoAccountInfo.getEmail() : "";
         Room room = roomRepository.save(Room.newInstance());
         Onboarding onboarding = onboardingRepository.save(Onboarding.newInstance(email, room));
         User user = userRepository.save(
-            User.newInstance(request.getSocialId(), request.getSocialType(), onboarding,
-                settingRepository.save(Setting.newInstance()),
-                pointRepository.save(Point.newInstance())));
+                User.newInstance(request.getSocialId(), request.getSocialType(), onboarding,
+                        settingRepository.save(Setting.newInstance()),
+                        pointRepository.save(Point.newInstance())));
         return user.getId();
     }
 
-    //TODO - 인증된 전화번호인지 검증하는 로직 추가
     @Transactional
     public void setOnboardingInfo(SetOnboardingInfoRequestDto request, Long userId) {
+        UserServiceUtils.validatePhoneNumber(redisTemplate, request.getPhoneNumber(), userId);
         User user = UserServiceUtils.findUserById(userRepository, userId);
         Onboarding onboarding = user.getOnboarding();
         onboarding.setInfo(request.getName(), request.getPhoneNumber(), request.getGender(),
-            request.getCleanAbility(), request.getAddress(), request.getDetailAddress(),
-            request.getGatePassword());
+                request.getCleanAbility(), request.getAddress(), request.getDetailAddress(),
+                request.getGatePassword());
         onboardingRepository.save(onboarding);
     }
 

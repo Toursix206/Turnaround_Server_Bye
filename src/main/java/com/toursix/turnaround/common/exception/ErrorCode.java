@@ -26,6 +26,7 @@ public enum ErrorCode {
      */
     UNAUTHORIZED_EXCEPTION(UNAUTHORIZED, "토큰이 만료되었습니다. 다시 로그인 해주세요."),
     UNAUTHORIZED_INVALID_TOKEN_EXCEPTION(UNAUTHORIZED, "유효하지 않은 토큰입니다."),
+    UNAUTHORIZED_PHONE_NUMBER_EXCEPTION(UNAUTHORIZED, "인증되지 않은 전화번호입니다."),
 
     /**
      * 403 Forbidden
