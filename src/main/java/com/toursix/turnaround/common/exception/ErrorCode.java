@@ -69,6 +69,7 @@ public enum ErrorCode {
      * 500 Internal Server Exception
      */
     INTERNAL_SERVER_EXCEPTION(INTERNAL_SERVER, "예상치 못한 서버 에러가 발생하였습니다."),
+    SMS_EXCEPTION(INTERNAL_SERVER, "인증번호 전송 실패입니다."),
 
     /**
      * 502 Bad Gateway
