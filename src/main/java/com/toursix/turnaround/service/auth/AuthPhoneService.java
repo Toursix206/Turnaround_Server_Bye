@@ -1,7 +1,9 @@
 package com.toursix.turnaround.service.auth;
 
 import com.toursix.turnaround.common.exception.InternalServerException;
+import com.toursix.turnaround.common.exception.ValidationException;
 import com.toursix.turnaround.common.util.YamlPropertySourceFactory;
+import com.toursix.turnaround.service.auth.dto.request.AuthPhoneCheckRequestDto;
 import com.toursix.turnaround.service.auth.dto.request.AuthPhoneRequestDto;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.java_sdk.api.Message;
@@ -17,6 +19,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static com.toursix.turnaround.common.exception.ErrorCode.SMS_EXCEPTION;
+import static com.toursix.turnaround.common.exception.ErrorCode.VALIDATION_AUTH_NUMBER_EXCEPTION;
 
 @RequiredArgsConstructor
 @Service
@@ -24,6 +27,7 @@ import static com.toursix.turnaround.common.exception.ErrorCode.SMS_EXCEPTION;
 public class AuthPhoneService {
 
     private static final long AUTH_NUMBER_EXPIRE_TIME = 3 * 60 * 1000L;   // 3분
+    private static final long AUTH_USER_EXPIRE_TIME = 24 * 60 * 60 * 1000L;   // 1일
 
     private final RedisTemplate redisTemplate;
 
@@ -40,6 +44,18 @@ public class AuthPhoneService {
         String authNumber = createAuthNumber();
         sendMessage(request.getPhoneNumber(), authNumber);
         redisTemplate.opsForValue().set("AN:" + userId, authNumber, AUTH_NUMBER_EXPIRE_TIME, TimeUnit.MILLISECONDS);
+    }
+
+    public void authPhoneCheck(AuthPhoneCheckRequestDto request, Long userId) {
+        String authNumber = (String) redisTemplate.opsForValue().get("AN:" + userId);
+        validateAuthNumber(request.getAuthNumber(), authNumber);
+        redisTemplate.opsForValue().set("AU:" + userId, request.getPhoneNumber(), AUTH_USER_EXPIRE_TIME, TimeUnit.MILLISECONDS);
+    }
+
+    private void validateAuthNumber(String checkNumber, String authNumber) {
+        if (!checkNumber.equals(authNumber)) {
+            throw new ValidationException(String.format("인증번호 (%s) (%s) 가 일치하지 않습니다.", checkNumber, authNumber), VALIDATION_AUTH_NUMBER_EXCEPTION);
+        }
     }
 
     private void sendMessage(String toNumber, String authNumber) {
