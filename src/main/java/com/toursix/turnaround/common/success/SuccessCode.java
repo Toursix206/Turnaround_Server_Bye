@@ -1,11 +1,10 @@
 package com.toursix.turnaround.common.success;
 
-import static com.toursix.turnaround.common.success.SuccessStatusCode.CREATED;
-import static com.toursix.turnaround.common.success.SuccessStatusCode.OK;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import static com.toursix.turnaround.common.success.SuccessStatusCode.*;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -47,7 +46,7 @@ public enum SuccessCode {
     /**
      * 204 NO_CONTENT
      */
-    ;
+    NO_CONTENT_SUCCESS(NO_CONTENT, "");
 
     private final SuccessStatusCode statusCode;
     private final String message;

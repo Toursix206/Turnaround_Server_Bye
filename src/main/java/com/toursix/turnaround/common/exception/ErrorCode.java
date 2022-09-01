@@ -19,12 +19,14 @@ public enum ErrorCode {
     VALIDATION_WRONG_TYPE_EXCEPTION(BAD_REQUEST, "잘못된 타입이 입력되었습니다."),
     VALIDATION_SOCIAL_TYPE_EXCEPTION(BAD_REQUEST, "잘못된 소셜 프로바이더 입니다."),
     VALIDATION_SORT_TYPE_EXCEPTION(BAD_REQUEST, "허용하지 않는 정렬기준을 입력했습니다."),
+    VALIDATION_AUTH_NUMBER_EXCEPTION(BAD_REQUEST, "인증번호를 다시 입력해주세요."),
 
     /**
      * 401 UnAuthorized
      */
     UNAUTHORIZED_EXCEPTION(UNAUTHORIZED, "토큰이 만료되었습니다. 다시 로그인 해주세요."),
     UNAUTHORIZED_INVALID_TOKEN_EXCEPTION(UNAUTHORIZED, "유효하지 않은 토큰입니다."),
+    UNAUTHORIZED_PHONE_NUMBER_EXCEPTION(UNAUTHORIZED, "인증되지 않은 전화번호입니다."),
 
     /**
      * 403 Forbidden
@@ -69,6 +71,7 @@ public enum ErrorCode {
      * 500 Internal Server Exception
      */
     INTERNAL_SERVER_EXCEPTION(INTERNAL_SERVER, "예상치 못한 서버 에러가 발생하였습니다."),
+    SMS_EXCEPTION(INTERNAL_SERVER, "인증번호 전송 실패입니다."),
 
     /**
      * 502 Bad Gateway
