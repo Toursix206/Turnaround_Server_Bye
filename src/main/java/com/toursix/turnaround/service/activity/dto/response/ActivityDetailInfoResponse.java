@@ -64,7 +64,7 @@ public class ActivityDetailInfoResponse {
                 .paymentStatus(activity.getPaymentStatus())
                 .name(activity.getName())
                 .cleanScore(activity.getCleanScore())
-                .price(activity.getPayInfo().getPrice())
+                .price(activity.getPrice())
                 .dailyParticipantsCnt(activity.getDailyParticipantsCnt())
                 .point(activity.getPoint())
                 .timeLimit(activity.getTimeLimit())
