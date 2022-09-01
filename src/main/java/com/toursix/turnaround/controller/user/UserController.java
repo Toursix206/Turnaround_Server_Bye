@@ -39,14 +39,14 @@ public class UserController {
             @ApiResponse(code = 200, message = "온보딩 정보 설정 성공입니다."),
             @ApiResponse(
                     code = 400,
-                    message = "1. 이름을 입력해주세요.\n"
-                            + "2. 전화번호를 입력해주세요.\n"
-                            + "3. 전화번호 형식으로 입력해주세요.\n"
-                            + "4. 성별을 입력해주세요.\n"
-                            + "5. 부지런한 정도를 입력해주세요.\n"
-                            + "6. 주소를 입력해주세요.\n"
-                            + "7. 상세주소를 입력해주세요.\n"
-                            + "8. 공동현관 비밀번호를 입력해주세요.",
+                    message = "1. 이름을 입력해주세요. (name)\n"
+                            + "2. 전화번호를 입력해주세요. (phoneNumber)\n"
+                            + "3. 전화번호 형식으로 입력해주세요. (phoneNumber)\n"
+                            + "4. 성별을 입력해주세요. (gender)\n"
+                            + "5. 부지런한 정도를 입력해주세요. (cleanAbility)\n"
+                            + "6. 주소를 입력해주세요. (address)\n"
+                            + "7. 상세주소를 입력해주세요. (detailAddress)\n"
+                            + "8. 공동현관 비밀번호를 입력해주세요. (gatePassword)",
                     response = ErrorResponse.class),
             @ApiResponse(
                     code = 401,

@@ -93,8 +93,8 @@ public class AuthController {
             @ApiResponse(code = 204, message = ""),
             @ApiResponse(
                     code = 400,
-                    message = "1. 전화번호를 입력해주세요.\n"
-                            + "2. 전화번호 양식에 맞게 입력해주세요. (010-1234-5678)",
+                    message = "1. 전화번호를 입력해주세요. (phoneNumber)\n"
+                            + "2. 전화번호 양식에 맞게 입력해주세요. (010-1234-5678) (phoneNumber)",
                     response = ErrorResponse.class),
             @ApiResponse(code = 401, message = "토큰이 만료되었습니다. 다시 로그인 해주세요.", response = ErrorResponse.class),
             @ApiResponse(
@@ -120,9 +120,9 @@ public class AuthController {
             @ApiResponse(code = 204, message = ""),
             @ApiResponse(
                     code = 400,
-                    message = "1. 전화번호를 입력해주세요.\n"
-                            + "2. 전화번호 양식에 맞게 입력해주세요. (010-1234-5678)\n"
-                            + "3. 인증번호를 입력해주세요.\n"
+                    message = "1. 전화번호를 입력해주세요. (phoneNumber)\n"
+                            + "2. 전화번호 양식에 맞게 입력해주세요. (010-1234-5678) (phoneNumber)\n"
+                            + "3. 인증번호를 입력해주세요. (authNumber)\n"
                             + "4. 인증번호를 다시 입력해주세요.",
                     response = ErrorResponse.class),
             @ApiResponse(code = 401, message = "토큰이 만료되었습니다. 다시 로그인 해주세요.", response = ErrorResponse.class),
